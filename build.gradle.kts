@@ -9,13 +9,15 @@ plugins {
     // Kotlin support
     id("org.jetbrains.kotlin.jvm") version "1.8.0"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.12.0"
+    id("org.jetbrains.intellij") version "1.13.0"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "2.0.0"
     // Gradle Qodana Plugin
     id("org.jetbrains.qodana") version "0.1.13"
     // Gradle Kover Plugin
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
+    // grammar Plugin
+    id("org.jetbrains.grammarkit") version "2022.3"
 }
 
 group = properties("pluginGroup")
@@ -28,7 +30,7 @@ repositories {
 
 // Set the JVM language level used to build the project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
@@ -60,9 +62,42 @@ kover.xmlReport {
     onCheck.set(true)
 }
 
+sourceSets["main"].java.srcDirs("src/main/gen")
+
 tasks {
     wrapper {
         gradleVersion = properties("gradleVersion")
+    }
+
+    generateLexer {
+        // source flex file
+        source.set("src/main/grammars/wit.flex")
+
+        // target directory for lexer
+        targetDir.set("src/main/gen/org/mvnsearch/plugins/wit/lang/lexer/")
+
+        // target classname, target file will be targetDir/targetClass.java
+        targetClass.set("PrqlLexer")
+
+        // if set, plugin will remove a lexer output file before generating new one. Default: false
+        purgeOldFiles.set(true)
+    }
+
+    generateParser {
+        // source bnf file
+        source.set("src/main/grammars/wit.bnf")
+
+        // optional, task-specific root for the generated files. Default: none
+        targetRoot.set("src/main/gen")
+
+        // path to a parser file, relative to the targetRoot
+        pathToParser.set("/org/mvnsearch/plugins/wit/parser/WitParserGenerated.java")
+
+        // path to a directory with generated psi files, relative to the targetRoot
+        pathToPsiRoot.set("/org/mvnsearch/plugins/wit/lang/psi")
+
+        // if set, the plugin will remove a parser output file and psi output directory before generating new ones. Default: false
+        purgeOldFiles.set(true)
     }
 
     patchPluginXml {
@@ -72,24 +107,24 @@ tasks {
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         pluginDescription.set(
-            file("README.md").readText().lines().run {
-                val start = "<!-- Plugin description -->"
-                val end = "<!-- Plugin description end -->"
+                file("README.md").readText().lines().run {
+                    val start = "<!-- Plugin description -->"
+                    val end = "<!-- Plugin description end -->"
 
-                if (!containsAll(listOf(start, end))) {
-                    throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
-                }
-                subList(indexOf(start) + 1, indexOf(end))
-            }.joinToString("\n").let { markdownToHTML(it) }
+                    if (!containsAll(listOf(start, end))) {
+                        throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
+                    }
+                    subList(indexOf(start) + 1, indexOf(end))
+                }.joinToString("\n").let { markdownToHTML(it) }
         )
 
         // Get the latest available change notes from the changelog file
         changeNotes.set(provider {
             with(changelog) {
                 renderItem(
-                    getOrNull(properties("pluginVersion"))
-                        ?: runCatching { getLatest() }.getOrElse { getUnreleased() },
-                    Changelog.OutputType.HTML,
+                        getOrNull(properties("pluginVersion"))
+                                ?: runCatching { getLatest() }.getOrElse { getUnreleased() },
+                        Changelog.OutputType.HTML,
                 )
             }
         })
