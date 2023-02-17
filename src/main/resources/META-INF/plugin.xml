@@ -7,6 +7,11 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <fileType name="wit" implementationClass="org.mvnsearch.plugins.wit.lang.psi.WitFileType"
+                  fieldName="INSTANCE" language="WIT" extensions="wit"/>
+        <lang.parserDefinition language="WIT"
+                               implementationClass="org.mvnsearch.plugins.wit.lang.parser.WitParserDefinition"/>
+
     </extensions>
-    
+
 </idea-plugin>
