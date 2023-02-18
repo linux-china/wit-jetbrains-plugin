@@ -12,6 +12,8 @@
         <lang.parserDefinition language="WIT"
                                implementationClass="org.mvnsearch.plugins.wit.lang.parser.WitParserDefinition"/>
 
+        <annotator language="WIT" implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitAnnotator"/>
+
     </extensions>
 
 </idea-plugin>
