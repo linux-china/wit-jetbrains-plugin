@@ -89,11 +89,12 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   "<"                             { return LT; }
   ">"                             { return GT; }
   "->"                            { return ARROW; }
+  /* Builtin types */
+  "u8" | "u16" | "u32" | "u64" | "s8" | "s16" |"s32" |"s64"  | "float32" | "float64" | 'char' | "bool" | "string"  | "tuple" | "list"  | "option" | "result" | "handle" | "id"
+                                  { return BUILTIN_TYPE; }
   /* Keywords */
-  "use"|"type"|"resource" | "func" |
-  "u8" | "u16" | "u32" | "u64" | "s8" | "s16" |"s32" |"s64"  | "float32" | "float64" |
-  "char" | "record" | "enum" | "flags" | "variant" | "union" | "bool" | "string" | "option" | "list" | "result" | "as" | "static" | "interface" | "tuple" | "future" | "stream" | "world" | "import" | "export" | "default"
-                          { return RESERVED_KEYWORD; }
+  "use"|"type"|"resource" | "func" | "record" | "enum" | "flags" | "variant" | "union" | "as" | "static" | "interface" | "future" | "stream" | "world" | "import" | "export" | "default"
+                                  { return RESERVED_KEYWORD; }
 
   /* Comment */
   {DOC_COMMENT}                  { return DOC_COMMENT; }

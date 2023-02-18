@@ -49,6 +49,7 @@
               DOUBLE_LITERAL = 'regexp:(\d[\d_]*)(\.)(\d[\d_]*)'
               CHAR_LITERAL = "regexp:([^\r\n \t]*)"
               STRING_LITERAL = 'regexp:("[^\\"\r\n]*")'
+              BUILTIN_TYPE = 'builtin_type'
               RESERVED_KEYWORD = 'reserved_keyword'
               IDENTIFIER = 'regexp:[a-z][_a-zA-Z0-9-]*'
           ]
@@ -63,9 +64,43 @@ private any ::= !<<eof>> ( interface-item | world-item | NEW_LINE | DOC_COMMENT 
 
 comment-block ::= BLOCK_COMMENT_START (NEW_LINE | CHAR_LITERAL)* BLOCK_COMMENT_END
 
-world-item ::= 'default'? 'world' IDENTIFIER '{'  '}'
+// types
+ty ::= BUILTIN_TYPE | IDENTIFIER
+tuple ::= 'tuple' '<' tuple-list '>'
+tuple-list ::= ty | ty ',' tuple-list?
+list ::= 'list' '<' ty '>'
+option ::= 'option' '<' ty '>'
+result ::= 'result' '<' ty ',' ty '>' | 'result' '<' '_' ',' ty '>' | 'result' '<' ty '>' | 'result'
+wit-type ::= tuple | list | option | result | ty
 
-interface-item ::= 'interface' IDENTIFIER '{'  '}'
+// word item
+world-item ::= 'default'? 'world' world-name '{'  '}'
+world-name ::= IDENTIFIER
+
+// interface item
+interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}'
+interface-name ::= IDENTIFIER
+interface-items ::= typedef-item | use-item | func-item
+
+typedef-item ::= resource-item
+               | variant-items
+               | record-item
+               | union-items
+               | flags-items
+               | enum-items
+               | type-item
+
+// function item
+func-item ::= func-name ':' func-type
+func-name ::= IDENTIFIER
+func-type ::= 'func' '(' func-param-list? ')' func-result?
+func-param-list ::=  func-param ( ',' func-param )*
+func-param ::= func-param-name ':' wit-type
+func-param-name ::= IDENTIFIER
+func-result ::=  '->' wit-type | '->' '(' func-result-list ')'
+func-result-list ::= func-result-named-pair ( ',' func-result-named-pair )*
+func-result-named-pair ::= func-result-named-pair-name ':' wit-type
+func-result-named-pair-name ::= IDENTIFIER
 
 
 
