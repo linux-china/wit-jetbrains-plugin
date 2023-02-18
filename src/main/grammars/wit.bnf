@@ -47,7 +47,7 @@
               BLOCK_COMMENT_END = '*/'
               INTEGER_LITERAL = 'regexp:\d+'
               DOUBLE_LITERAL = 'regexp:(\d[\d_]*)(\.)(\d[\d_]*)'
-              CHAR_LITERAL = "regexp:('[^\\'\r\n]*')"
+              CHAR_LITERAL = "regexp:([^\r\n \t]*)"
               STRING_LITERAL = 'regexp:("[^\\"\r\n]*")'
               RESERVED_KEYWORD = 'reserved_keyword'
               IDENTIFIER = 'regexp:[a-z][_a-zA-Z0-9-]*'
@@ -59,7 +59,9 @@
 WitDocument ::= any*
 
 private recover ::= !(any)
-private any ::= !<<eof>> ( interface-item | world-item | NEW_LINE | DOC_COMMENT | COMMENT  ) {pin=1 recoverWhile=recover}
+private any ::= !<<eof>> ( interface-item | world-item | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
+
+comment-block ::= BLOCK_COMMENT_START (NEW_LINE | CHAR_LITERAL)* BLOCK_COMMENT_END
 
 world-item ::= 'default'? 'world' IDENTIFIER '{'  '}'
 

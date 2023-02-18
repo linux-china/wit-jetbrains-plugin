@@ -55,7 +55,7 @@ BLOCK_COMMENT_END="*/"
 INTEGER_LITERAL=[\d][\d_]*
 DOUBLE_LITERAL=([\d][\d_]*)(\.)([\d][\d_]*)
 
-CHAR_LITERAL   = (\'[^\\\'\r\n]*\')
+CHAR_LITERAL   = ([^\r\n\ \t]*)
 STRING_LITERAL = (\"[^\\\"\r\n]*\")
 
 %state IN_BLOCK_COMMENT
@@ -63,8 +63,9 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
 %%
 
 <IN_BLOCK_COMMENT> {
-  "*/"    { yybegin(YYINITIAL); return BLOCK_COMMENT_END; }
-  [^]     { }
+  "*/"                           { yybegin(YYINITIAL); return BLOCK_COMMENT_END; }
+  {CHAR_LITERAL}                 { yybegin(IN_BLOCK_COMMENT); return CHAR_LITERAL; }
+  {WHITE_SPACE}                  { yybegin(IN_BLOCK_COMMENT); return WHITE_SPACE; }
 }
 
 <YYINITIAL> {
@@ -105,7 +106,6 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   {STRING_LITERAL}                { return STRING_LITERAL; }
 
   {IDENTIFIER}                   { return IDENTIFIER; }
-  {CHAR_LITERAL}                { return CHAR_LITERAL; }
   {WHITE_SPACE}                   { return WHITE_SPACE; }
 }
 
