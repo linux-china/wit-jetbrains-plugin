@@ -67,40 +67,95 @@ comment-block ::= BLOCK_COMMENT_START (NEW_LINE | CHAR_LITERAL)* BLOCK_COMMENT_E
 // types
 ty ::= BUILTIN_TYPE | IDENTIFIER
 tuple ::= 'tuple' '<' tuple-list '>'
-tuple-list ::= ty | ty ',' tuple-list?
-list ::= 'list' '<' ty '>'
-option ::= 'option' '<' ty '>'
-result ::= 'result' '<' ty ',' ty '>' | 'result' '<' '_' ',' ty '>' | 'result' '<' ty '>' | 'result'
-wit-type ::= tuple | list | option | result | ty
+tuple-list ::= tuple-type (',' tuple-type)* ','?
+tuple-type ::= list|tuple|ty
+list ::= 'list' '<' list-type '>'
+list-type ::= tuple|list|option|ty
+option ::= 'option' '<' option-type '>'
+option-type ::= option | list | tuple | result | ty
+result ::= 'result' '<' result-type ',' result-type '>' | 'result' '<' '_' ',' result-type '>' | 'result' '<' result-type '>' | 'result'
+result-type ::= tuple|list|option|ty
+wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 
 // word item
-world-item ::= 'default'? 'world' world-name '{'  '}'
+world-item ::= 'default'? 'world' world-name '{' world-items*  '}'
 world-name ::= IDENTIFIER
+world-items ::= world-export-item | world-import-item  | typedef-item | use-item
+world-export-item ::= 'export' world-export-item-name ':' world-extern-type
+world-export-item-name ::= IDENTIFIER
+world-import-item ::= 'import' world-import-item-name ':' world-extern-type
+world-import-item-name ::= IDENTIFIER
+world-extern-type ::= func-type | world-interface-type
+world-interface-type ::= 'interface' '{' interface-items* '}' | use-path
+
+// use item
+use-item ::= 'use' use-path '.' '{' use-names-list '}'
+use-names-list ::= use-names-type (',' use-names-type)*
+use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-type-name
+use-names-type-name ::= IDENTIFIER
+use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
+use-path ::= use-path-part ('.' use-path-part)*
+use-path-part ::= IDENTIFIER
 
 // interface item
 interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}'
 interface-name ::= IDENTIFIER
 interface-items ::= typedef-item | use-item | func-item
 
-typedef-item ::= resource-item
-               | variant-items
-               | record-item
-               | union-items
-               | flags-items
-               | enum-items
-               | type-item
+// typedef item
+typedef-item ::= resource-item | variant-item | record-item | union-item | flags-item | enum-item | type-item
+
+// type item
+type-item ::= 'type' type-item-name '=' wit-type
+type-item-name ::= IDENTIFIER
+
+// flags item
+flags-item ::= 'flags' flags-item-name '{' flags-fields '}'
+flags-item-name ::= IDENTIFIER
+flags-fields ::= flags-field-name (',' flags-field-name)* ','?
+flags-field-name ::= IDENTIFIER
+
+// variant item
+variant-item ::= 'variant' variant-item-name '{' variant-cases '}'
+variant-item-name ::= IDENTIFIER
+variant-cases ::= variant-case (',' variant-case)* ','?
+variant-case ::=  variant-case-name '(' wit-type ')' | variant-case-name
+variant-case-name ::= IDENTIFIER
+
+// enum item
+enum-item ::= 'enum' enum-item-name '{' enum-cases '}'
+enum-item-name ::= IDENTIFIER
+enum-cases ::= enum-case-name (',' NEW_LINE* enum-case-name)* ','?
+enum-case-name ::= IDENTIFIER
+
+// union item
+union-item ::= 'union' union-item-name '{' union-cases '}'
+union-item-name ::= IDENTIFIER
+union-cases ::= union-case-type (',' union-case-type)* ','?
+union-case-type ::= wit-type
+
+// resource item
+resource-item ::= 'resource' resource-item-name '{' func-item* '}'
+resource-item-name ::= IDENTIFIER
+
+// record item
+record-item ::= 'record' record-item-name '{' record-fields? '}'
+record-item-name ::= IDENTIFIER
+record-fields ::= record-field (',' record-field)* ','?
+record-field ::= record-field-name ':' wit-type
+record-field-name ::= IDENTIFIER
 
 // function item
 func-item ::= func-name ':' func-type
-func-name ::= IDENTIFIER
+func-name ::= '%'? (IDENTIFIER | BUILTIN_TYPE | RESERVED_KEYWORD)
 func-type ::= 'func' '(' func-param-list? ')' func-result?
-func-param-list ::=  func-param ( ',' func-param )*
+func-param-list ::=  func-param ( ',' func-param )* ','?
 func-param ::= func-param-name ':' wit-type
-func-param-name ::= IDENTIFIER
-func-result ::=  '->' wit-type | '->' '(' func-result-list ')'
+func-param-name ::= '%'? (IDENTIFIER | BUILTIN_TYPE | RESERVED_KEYWORD)
+func-result ::=  '->' wit-type | '->' '(' func-result-list? ')'
 func-result-list ::= func-result-named-pair ( ',' func-result-named-pair )*
 func-result-named-pair ::= func-result-named-pair-name ':' wit-type
-func-result-named-pair-name ::= IDENTIFIER
+func-result-named-pair-name ::= '%'? (IDENTIFIER | BUILTIN_TYPE | RESERVED_KEYWORD)
 
 
 
