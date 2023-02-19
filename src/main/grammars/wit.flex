@@ -55,7 +55,7 @@ BLOCK_COMMENT_END="*/"
 INTEGER_LITERAL=[\d][\d_]*
 DOUBLE_LITERAL=([\d][\d_]*)(\.)([\d][\d_]*)
 
-CHAR_LITERAL   = ([^\r\n\ \t]*)
+CHAR_LITERAL   = ([^\r\n\ \t]+)
 STRING_LITERAL = (\"[^\\\"\r\n]*\")
 
 %state IN_BLOCK_COMMENT
