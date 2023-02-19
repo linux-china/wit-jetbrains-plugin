@@ -13,7 +13,12 @@
                                implementationClass="org.mvnsearch.plugins.wit.lang.parser.WitParserDefinition"/>
 
         <annotator language="WIT" implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitAnnotator"/>
-
+        <lang.syntaxHighlighterFactory language="WIT"
+                                       implementationClass="org.mvnsearch.plugins.wit.lang.lighter.WitSyntaxHighlighterFactory"/>
+        <lang.foldingBuilder language="WIT"
+                             implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitFoldingBuilder"/>
+        <lang.commenter language="WIT"
+                        implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitCommenter"/>
     </extensions>
 
 </idea-plugin>
