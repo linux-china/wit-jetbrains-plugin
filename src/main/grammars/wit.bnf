@@ -11,6 +11,9 @@
   elementTypeClass="org.mvnsearch.plugins.wit.lang.psi.WitElementType"
   tokenTypeClass="org.mvnsearch.plugins.wit.lang.psi.WitTokenType"
 
+  psiImplUtilClass="org.mvnsearch.plugins.wit.lang.psi.impl.WitPsiImplUtil"
+
+
   tokens=[
               LBRACE      =  '{'
               RBRACE      =  '}'
