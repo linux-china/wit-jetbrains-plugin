@@ -87,7 +87,8 @@ world-export-item-name ::= IDENTIFIER
 world-import-item ::= 'import' world-import-item-name ':' world-extern-type
 world-import-item-name ::= IDENTIFIER
 world-extern-type ::= func-type | world-interface-type
-world-interface-type ::= 'interface' '{' interface-items* '}' | use-path
+world-interface-type ::= world-interface-type-inline | use-path
+world-interface-type-inline ::= 'interface' '{' interface-items* '}'
 
 // use item
 use-item ::= 'use' use-path '.' '{' use-names-list '}'
