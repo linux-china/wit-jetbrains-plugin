@@ -1,7 +1,7 @@
 WIT JetBrains plugin
 ========================
 <!-- Plugin description -->
-WIT plugin allows you to edit [WebAssebmly Interface Type](https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md) in JetBrains IDEs.
+WIT plugin allows you to edit [WebAssembly Interface Type](https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md) in JetBrains IDEs.
 
 Features:
 
