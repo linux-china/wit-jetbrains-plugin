@@ -19,8 +19,10 @@
                              implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitFoldingBuilder"/>
         <lang.commenter language="WIT"
                         implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitCommenter"/>
-       <!-- <lang.documentationProvider language="WIT"
-                implementationClass="org.mvnsearch.plugins.wit.lang.doc.WitDocumentationProvider"/>-->
+        <completion.contributor language="WIT"
+                                implementationClass="org.mvnsearch.plugins.wit.lang.completion.PkgCompletionContributor"/>
+        <!-- <lang.documentationProvider language="WIT"
+                 implementationClass="org.mvnsearch.plugins.wit.lang.doc.WitDocumentationProvider"/>-->
     </extensions>
 
 </idea-plugin>
