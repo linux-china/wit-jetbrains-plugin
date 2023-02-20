@@ -52,7 +52,7 @@ class PkgCompletionContributor : CompletionContributor() {
         witFile.getInterfaceItems().forEach {
             it.interfaceName?.text?.let { interfaceName ->
                 result.addElement(
-                    LookupElementBuilder.create("$interfaceName.")
+                    LookupElementBuilder.create(interfaceName)
                         .withPresentableText(interfaceName)
                         .withIcon(AllIcons.Nodes.Interface)
                 )
