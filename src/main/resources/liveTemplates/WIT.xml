@@ -1,0 +1,12 @@
+<templateSet group="WIT">
+    <template name="func" value="$name$: func($param$) -&gt; $result$$END$" description="WIT function declare"
+              toReformat="false"
+              toShortenFQNames="true">
+        <variable name="name" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="param" expression="" defaultValue="" alwaysStopAt="true"/>
+        <variable name="result" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="WIT" value="true"/>
+        </context>
+    </template>
+</templateSet>
