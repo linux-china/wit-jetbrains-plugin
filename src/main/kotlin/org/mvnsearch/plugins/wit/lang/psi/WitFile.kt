@@ -8,5 +8,8 @@ class WitFile(viewProvider: FileViewProvider?) : PsiFileBase(viewProvider!!, Wit
     override fun getFileType() = WitFileType
     override fun toString() = "WIT File"
 
+    fun getInterfaceItems(): Array<WitInterfaceItem> {
+        return findChildrenByClass(WitInterfaceItem::class.java)
+    }
 }
 
