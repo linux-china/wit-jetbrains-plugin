@@ -23,6 +23,10 @@ Features:
   Download the [latest release](https://github.com/linux-china/wit-jetbrains-plugin/releases/latest) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
+      
+# Todo
+
+* Code completion for types
 
 # References
 
