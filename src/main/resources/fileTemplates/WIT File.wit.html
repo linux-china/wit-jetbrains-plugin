@@ -1,0 +1,14 @@
+<html lang="en">
+<body>
+  Create simple WIT file with following code:
+  <pre>
+    interface hello {
+       hello: func(name: string) -> string
+    }
+
+    default world component {
+       export hello: self.hello
+    }
+  </pre>
+</body>
+</html>

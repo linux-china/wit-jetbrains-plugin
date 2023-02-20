@@ -1,0 +1,7 @@
+interface hello {
+   hello: func(name: string) -> string
+}
+
+default world component {
+   export hello: self.hello
+}
