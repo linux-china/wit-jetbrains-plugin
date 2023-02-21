@@ -101,10 +101,10 @@ use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-typ
 use-names-type-name ::= IDENTIFIER
 use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 use-path ::= use-path-pkg |use-path-self| use-path-package
-use-path-pkg ::= 'pkg' '.' use-path-pkg-name ('.' use-path-pkg-interface-name)? ('.' use-path-part)?
+use-path-pkg ::= 'pkg' '.' use-path-pkg-name ('.' use-path-pkg-interface-name)? ('.' use-path-part)? {pin=3}
 use-path-pkg-name ::= IDENTIFIER
 use-path-pkg-interface-name ::= IDENTIFIER
-use-path-self ::= 'self' '.' use-path-self-interface-name ('.' use-path-part)?
+use-path-self ::= 'self' '.' use-path-self-interface-name ('.' use-path-part)? {pin=3}
 use-path-self-interface-name ::= IDENTIFIER
 use-path-package ::= use-path-package-name '.' use-path-package-document-name ('.' use-path-package-interface-name)? ('.' use-path-part)?
 use-path-package-name ::= IDENTIFIER
