@@ -10,7 +10,7 @@ import org.mvnsearch.plugins.wit.lang.psi.WitTypes
 
 class WitAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
-        when (element.elementType) {
+        /*when (element.elementType) {
 
             WitTypes.USE_PATH_PART -> {
                 val pathName = element.text
@@ -19,7 +19,7 @@ class WitAnnotator : Annotator {
                         .textAttributes(DefaultLanguageHighlighterColors.KEYWORD).create()
                 }
             }
-        }
+        }*/
     }
 
 }
