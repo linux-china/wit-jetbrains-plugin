@@ -16,6 +16,7 @@ class WitSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> {
         val textAttributesKey = when (tokenType) {
             WitTypes.RESERVED_KEYWORD -> DefaultLanguageHighlighterColors.KEYWORD
+            WitTypes.PATH_KEYWORD -> DefaultLanguageHighlighterColors.KEYWORD
             WitTypes.COMMENT -> DefaultLanguageHighlighterColors.LINE_COMMENT
             WitTypes.DOC_COMMENT -> DefaultLanguageHighlighterColors.DOC_COMMENT
             WitTypes.COMMENT_BLOCK -> DefaultLanguageHighlighterColors.BLOCK_COMMENT
