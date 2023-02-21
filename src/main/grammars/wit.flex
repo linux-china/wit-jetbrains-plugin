@@ -95,7 +95,9 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   /* Keywords */
   "use"|"type"|"resource" | "func" | "record" | "enum" | "flags" | "variant" | "union" | "as" | "static" | "interface" | "future" | "stream" | "world" | "import" | "export" | "default"
                                   { return RESERVED_KEYWORD; }
-
+  /* path keywords */
+  "pkg"|"self"                    { return PATH_KEYWORD; }
+      
   /* Comment */
   {DOC_COMMENT}                  { return DOC_COMMENT; }
   {COMMENT}                      { return COMMENT; }
