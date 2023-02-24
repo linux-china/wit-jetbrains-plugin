@@ -27,7 +27,8 @@
         <lang.directNavigationProvider implementation="org.mvnsearch.plugins.wit.lang.navigation.WitUsePathPkgNavigation"/>
         <lang.directNavigationProvider implementation="org.mvnsearch.plugins.wit.lang.navigation.WitUsePathSelfNavigation"/>
         <lang.directNavigationProvider implementation="org.mvnsearch.plugins.wit.lang.navigation.WitTypeNameNavigation"/>
-
+        <lang.braceMatcher language="WIT"
+                           implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitBraceMatcher"/>
         <!--<psi.referenceContributor language="WIT"
                                   implementation="org.mvnsearch.plugins.wit.lang.contributor.WitReferenceContributor"/>-->
         <!-- <lang.documentationProvider language="WIT"
