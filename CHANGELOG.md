@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2023-02-25
+
+### Added
+
+- Type names completion for `pkg.package_name.interface.{}` and `self.interface.{}`
+- Navigation support for `pkg.package_name.interface.{}` and `self.interface.{}`
+- braceMatcher added
+- Goto symbol support for interface names
+
 ## [0.1.0] - 2023-02-22
 
 ### Added
