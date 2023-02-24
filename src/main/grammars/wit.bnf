@@ -113,7 +113,7 @@ use-path-package-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
 
 // interface item
-interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}' { pin= 3 }
+interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}' { pin= 3 mixin="org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItemElementImpl" implements="org.mvnsearch.plugins.wit.lang.psi.WitNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 interface-name ::= IDENTIFIER
 interface-items ::= typedef-item | use-item | func-item
 
