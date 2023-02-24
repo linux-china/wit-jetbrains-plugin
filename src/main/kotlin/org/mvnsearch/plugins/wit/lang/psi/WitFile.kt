@@ -11,5 +11,20 @@ class WitFile(viewProvider: FileViewProvider?) : PsiFileBase(viewProvider!!, Wit
     fun getInterfaceItems(): Array<WitInterfaceItem> {
         return findChildrenByClass(WitInterfaceItem::class.java)
     }
+
+    fun findDefaultInterfaceItem(): WitInterfaceItem? {
+        return findChildrenByClass(WitInterfaceItem::class.java).find {
+            it.text.startsWith("default ")
+        }
+    }
+
+    fun findInterfaceItem(interfaceName: String): WitInterfaceItem? {
+        if (interfaceName.isEmpty()) {
+            return findDefaultInterfaceItem()
+        }
+        return findChildrenByClass(WitInterfaceItem::class.java).find {
+            it.interfaceName.text == interfaceName
+        }
+    }
 }
 
