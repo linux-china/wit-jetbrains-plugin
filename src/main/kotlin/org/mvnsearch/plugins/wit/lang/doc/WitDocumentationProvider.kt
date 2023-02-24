@@ -44,7 +44,7 @@ class WitDocumentationProvider : AbstractDocumentationProvider() {
      */
     private fun findDocumentationComment(property: PsiElement): String {
         val result: MutableList<String> = LinkedList()
-        var element: PsiElement = property.prevSibling
+        var element: PsiElement? = property.prevSibling
         while (element is PsiComment || element is PsiWhiteSpace) {
             if (element is PsiComment && element.elementType == WitTypes.DOC_COMMENT) {
                 val commentText = element.getText().replaceFirst("/// ", "")
