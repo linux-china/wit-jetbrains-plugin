@@ -12,6 +12,7 @@
 - Navigation support for `pkg.package_name.interface.{}` and `self.interface.{}`
 - braceMatcher added
 - Goto symbol support for interface names
+- documentation support for `/// `
 
 ## [0.1.0] - 2023-02-22
 
