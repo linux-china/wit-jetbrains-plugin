@@ -25,6 +25,9 @@ class PkgCompletionContributor : CompletionContributor() {
                     val prefixText = parameters.editor.document.getText(TextRange(lineOffset, caret.offset))
                     if (prefixText.endsWith(" pkg.")) {
                         completePkg(parameters.originalFile as WitFile, result)
+                    } else if (prefixText.contains(" pkg.") && prefixText.endsWith(".")) {
+                        val pkgName = prefixText.substringAfter(" pkg.").substringBeforeLast(".")
+                        completePkgInterfaceNames(parameters.originalFile as WitFile, pkgName, result)
                     } else if (prefixText.endsWith(" self.")) {
                         completeSelfInterfaceItems(parameters.originalFile as WitFile, result)
                     }
@@ -46,6 +49,19 @@ class PkgCompletionContributor : CompletionContributor() {
                         .withIcon(AllIcons.Nodes.Package)
                 )
             }
+    }
+
+    fun completePkgInterfaceNames(witFile: WitFile, pkgName: String, result: CompletionResultSet) {
+        witFile.parent?.findFile("$pkgName.wit")?.let {
+            (it as WitFile).getInterfaceItems().forEach { interfaceItem ->
+                interfaceItem.interfaceName?.text?.let { interfaceName ->
+                    result.addElement(
+                        LookupElementBuilder.create(interfaceName)
+                            .withIcon(AllIcons.Nodes.Interface)
+                    )
+                }
+            }
+        }
     }
 
     fun completeSelfInterfaceItems(witFile: WitFile, result: CompletionResultSet) {
