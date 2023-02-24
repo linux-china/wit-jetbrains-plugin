@@ -1,4 +1,5 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<!--suppress PluginXmlValidity -->
 <idea-plugin>
     <id>com.github.linuxchina.jetbrains.wit</id>
     <name>WIT</name>
@@ -23,6 +24,10 @@
                                 implementationClass="org.mvnsearch.plugins.wit.lang.completion.PkgCompletionContributor"/>
         <defaultLiveTemplates file="/liveTemplates/WIT.xml"/>
         <liveTemplateContext contextId="WIT" implementation="org.mvnsearch.plugins.wit.ide.liveTemplates.WitContext"/>
+        <lang.directNavigationProvider implementation="org.mvnsearch.plugins.wit.lang.navigation.WitUsePathPkgNavigation"/>
+        <lang.directNavigationProvider implementation="org.mvnsearch.plugins.wit.lang.navigation.WitUsePathSelfNavigation"/>
+        <lang.directNavigationProvider implementation="org.mvnsearch.plugins.wit.lang.navigation.WitTypeNameNavigation"/>
+
         <!--<psi.referenceContributor language="WIT"
                                   implementation="org.mvnsearch.plugins.wit.lang.contributor.WitReferenceContributor"/>-->
         <!-- <lang.documentationProvider language="WIT"
