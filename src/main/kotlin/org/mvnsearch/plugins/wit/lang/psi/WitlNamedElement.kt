@@ -4,12 +4,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.icons.AllIcons
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.navigation.NavigationItem
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import org.mvnsearch.plugins.wit.lang.psi.WitElementFactory.createInterfaceItem
 import javax.swing.Icon
 
-interface WitNamedElement : PsiNameIdentifierOwner {
+interface WitNamedElement : PsiNameIdentifierOwner, NavigationItem {
     fun getKey(): String?
 
     fun getValue(): String?
@@ -20,10 +21,10 @@ interface WitNamedElement : PsiNameIdentifierOwner {
 
     override fun getNameIdentifier(): PsiElement?
 
-    fun getPresentation(): ItemPresentation?
+    override fun getPresentation(): ItemPresentation?
 }
 
-abstract class PrqlNamedElementImpl(node: ASTNode) : ASTWrapperPsiElement(node), WitNamedElement {
+abstract class WitNamedElementImpl(node: ASTNode) : ASTWrapperPsiElement(node), WitNamedElement {
     private var _name: String? = null
 
     override fun getName(): String? {
@@ -45,7 +46,7 @@ abstract class PrqlNamedElementImpl(node: ASTNode) : ASTWrapperPsiElement(node),
 
 }
 
-abstract class WitInterfaceItemElementImpl(node: ASTNode) : PrqlNamedElementImpl(node) {
+abstract class WitInterfaceItemElementImpl(node: ASTNode) : WitNamedElementImpl(node) {
     override fun getKey(): String? {
         val keyNode: ASTNode? = this.node.findChildByType(WitTypes.INTERFACE_NAME)
         return keyNode?.text
@@ -64,7 +65,7 @@ abstract class WitInterfaceItemElementImpl(node: ASTNode) : PrqlNamedElementImpl
         val keyNode: ASTNode? = this.node.findChildByType(WitTypes.INTERFACE_NAME)
         if (keyNode != null) {
             val interfaceItem = createInterfaceItem(this.project, name)
-            val newKeyNode = interfaceItem.interfaceName!!.node
+            val newKeyNode = interfaceItem.interfaceName.node
             this.node.replaceChild(keyNode, newKeyNode)
         }
         return this
