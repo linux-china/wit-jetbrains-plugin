@@ -83,7 +83,7 @@ result-type ::= tuple|list|option|ty
 wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 
 // world item
-world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=2}
+world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
 world-name ::= IDENTIFIER
 world-items ::= world-export-item | world-import-item  | typedef-item | use-item
 world-export-item ::= 'export' world-export-item-name ':' world-extern-type
@@ -113,7 +113,7 @@ use-path-package-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
 
 // interface item
-interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}' { pin=2 }
+interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}' { pin= 3 }
 interface-name ::= IDENTIFIER
 interface-items ::= typedef-item | use-item | func-item
 
@@ -121,40 +121,40 @@ interface-items ::= typedef-item | use-item | func-item
 typedef-item ::= resource-item | variant-item | record-item | union-item | flags-item | enum-item | type-item
 
 // type item
-type-item ::= 'type' type-item-name '=' wit-type  {pin=1}
+type-item ::= 'type' type-item-name '=' wit-type  {pin=2}
 type-item-name ::= IDENTIFIER
 
 // flags item
-flags-item ::= 'flags' flags-item-name '{' flags-fields '}' {pin=1}
+flags-item ::= 'flags' flags-item-name '{' flags-fields '}' {pin=2}
 flags-item-name ::= IDENTIFIER
 flags-fields ::= flags-field-name (',' flags-field-name)* ','?
 flags-field-name ::= IDENTIFIER
 
 // variant item
-variant-item ::= 'variant' variant-item-name '{' variant-cases '}' {pin=1}
+variant-item ::= 'variant' variant-item-name '{' variant-cases '}' {pin=2}
 variant-item-name ::= IDENTIFIER
 variant-cases ::= variant-case (',' variant-case)* ','?
 variant-case ::=  variant-case-name '(' wit-type ')' | variant-case-name
 variant-case-name ::= IDENTIFIER
 
 // enum item
-enum-item ::= 'enum' enum-item-name '{' enum-cases '}' {pin=1}
+enum-item ::= 'enum' enum-item-name '{' enum-cases '}' {pin=2}
 enum-item-name ::= IDENTIFIER
 enum-cases ::= enum-case-name (',' NEW_LINE* enum-case-name)* ','?
 enum-case-name ::= IDENTIFIER
 
 // union item
-union-item ::= 'union' union-item-name '{' union-cases '}' {pin=1}
+union-item ::= 'union' union-item-name '{' union-cases '}' {pin=2}
 union-item-name ::= IDENTIFIER
 union-cases ::= union-case-type (',' union-case-type)* ','?
 union-case-type ::= wit-type
 
 // resource item
-resource-item ::= 'resource' resource-item-name '{' func-item* '}' {pin=1}
+resource-item ::= 'resource' resource-item-name '{' func-item* '}' {pin=2}
 resource-item-name ::= IDENTIFIER
 
 // record item
-record-item ::= 'record' record-item-name '{' record-fields? '}' {pin=1}
+record-item ::= 'record' record-item-name '{' record-fields? '}' {pin=2}
 record-item-name ::= IDENTIFIER
 record-fields ::= record-field (',' record-field)* ','?
 record-field ::= record-field-name ':' wit-type
