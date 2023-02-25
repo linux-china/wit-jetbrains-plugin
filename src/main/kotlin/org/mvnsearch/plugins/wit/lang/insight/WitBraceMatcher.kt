@@ -8,7 +8,12 @@ import org.mvnsearch.plugins.wit.lang.psi.WitTypes
 
 
 class WitBraceMatcher : PairedBraceMatcher {
-    private val pairs = arrayOf(BracePair(WitTypes.LBRACE, WitTypes.RBRACE, true))
+    private val pairs = arrayOf(
+        BracePair(WitTypes.LBRACE, WitTypes.RBRACE, true),
+        BracePair(WitTypes.LPAREN, WitTypes.RPAREN, true),
+        BracePair(WitTypes.LT, WitTypes.GT, true)
+    )
+
     override fun getPairs(): Array<BracePair> {
         return pairs
     }
