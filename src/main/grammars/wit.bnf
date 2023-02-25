@@ -54,8 +54,14 @@
               CHAR_LITERAL = "regexp:([^\r\n \t]*)"
               STRING_LITERAL = 'regexp:("[^\\"\r\n]*")'
               BUILTIN_TYPE = 'builtin_type'
-              PATH_KEYWORD = 'path_keyword'
-              RESERVED_KEYWORD = 'reserved_keyword'
+              PATH_PREFIX_KEYWORD = 'regexp:(pkg|self)'
+              TYPE_DECLARE_KEYWORD = 'regexp:(resource|union|flags|record|enum|variant)'
+              REFER_KEYWORD = 'regexp:(use|import|export)'
+              DEFAULT_KEYWORD = 'default'
+              FUNC_KEYWORD = 'func'
+              INTERFACE_KEYWORD = 'interface'
+              WORLD_KEYWORD = 'world'
+              RESERVED_KEYWORD = 'regexp:(as|static|future|stream)'
               IDENTIFIER = 'regexp:[a-z][_a-zA-Z0-9-]*'
           ]
 }

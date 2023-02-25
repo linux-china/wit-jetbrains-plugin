@@ -91,13 +91,18 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   "->"                            { return ARROW; }
   /* Builtin types */
   "u8" | "u16" | "u32" | "u64" | "s8" | "s16" |"s32" |"s64"  | "float32" | "float64" | 'char' | "bool" | "string"  | "tuple" | "list"  | "option" | "result" | "handle" | "id"
-                                  { return BUILTIN_TYPE; }
-  /* Keywords */
-  "use"|"type"|"resource" | "func" | "record" | "enum" | "flags" | "variant" | "union" | "as" | "static" | "interface" | "future" | "stream" | "world" | "import" | "export" | "default"
-                                  { return RESERVED_KEYWORD; }
+                                 { return BUILTIN_TYPE; }
+  /* type decleare */
+  "type" | "resource" | "record" | "enum" | "flags" | "variant" | "union"       { return TYPE_DECLARE_KEYWORD; }
+  "use" | "import" | "export"    { return REFER_KEYWORD; }
   /* path keywords */
-  "pkg"|"self"                    { return PATH_KEYWORD; }
-      
+  "pkg"|"self"                   { return PATH_PREFIX_KEYWORD; }
+  "default"                      { return DEFAULT_KEYWORD; }
+  "func"                         { return FUNC_KEYWORD; }
+  "interface"                    { return INTERFACE_KEYWORD; }
+  "world"                        { return  WORLD_KEYWORD; }
+  /* other keywords */
+  "as" | "static" | "future" | "stream"  { return RESERVED_KEYWORD; }
   /* Comment */
   {DOC_COMMENT}                  { return DOC_COMMENT; }
   {COMMENT}                      { return COMMENT; }
