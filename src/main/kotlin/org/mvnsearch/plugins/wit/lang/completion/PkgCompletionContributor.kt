@@ -51,7 +51,7 @@ class PkgCompletionContributor : CompletionContributor() {
                     }
                 }
                 interfaceSubItem.useItem?.let {
-                    it.useNamesList.useNamesTypeList.forEach { useNamesType ->
+                    it.useNamesList?.useNamesTypeList?.forEach { useNamesType ->
                         val typeName = useNamesType.useNamesTypeAlias?.text ?: useNamesType.useNamesTypeName.text
                         result.addElement(
                             LookupElementBuilder.create(typeName).withIcon(AllIcons.Nodes.Type)
