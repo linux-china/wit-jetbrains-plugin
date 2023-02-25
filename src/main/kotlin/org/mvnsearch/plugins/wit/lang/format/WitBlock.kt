@@ -2,8 +2,12 @@ package org.mvnsearch.plugins.wit.lang.format
 
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
+import com.intellij.psi.TokenType
 import com.intellij.psi.formatter.common.AbstractBlock
+import org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItem
 import org.mvnsearch.plugins.wit.lang.psi.WitTypes
+import org.mvnsearch.plugins.wit.lang.psi.WitWorldInterfaceTypeInline
+import org.mvnsearch.plugins.wit.lang.psi.WitWorldItem
 
 
 class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBuilder: SpacingBuilder) :
@@ -17,6 +21,33 @@ class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBui
     }
 
     override fun getIndent(): Indent? {
+        val psi = myNode.psi
+        val parent = psi.parent
+        if (myNode.elementType === WitTypes.REFER_KEYWORD || myNode.elementType === WitTypes.TYPE_DECLARE_KEYWORD) {
+            return Indent.getSpaceIndent(2)
+        } else if (myNode.elementType === WitTypes.FUNC_NAME) {
+            return Indent.getSpaceIndent(2)
+        } else if (myNode.elementType === WitTypes.RECORD_FIELD_NAME
+            || myNode.elementType === WitTypes.UNION_CASE_TYPE
+            || myNode.elementType === WitTypes.VARIANT_CASE_NAME
+            || myNode.elementType === WitTypes.VARIANT_CASE_NAME
+            || myNode.elementType === WitTypes.FLAGS_FIELD_NAME
+            || myNode.elementType === WitTypes.ENUM_CASE_NAME
+        ) {
+            return Indent.getSpaceIndent(4)
+        } else if (myNode.elementType === WitTypes.RESOURCE_FUNC_ITEM) {
+            return Indent.getSpaceIndent(2)
+        } else if (myNode.elementType === WitTypes.COMMENT || myNode.elementType === WitTypes.DOC_COMMENT) {
+            return Indent.getSpaceIndent(2, true)
+        } else if (myNode.elementType === WitTypes.RBRACE) {
+            return if (parent is WitWorldItem) {
+                Indent.getNoneIndent()
+            } else if (parent is WitInterfaceItem || parent is WitWorldInterfaceTypeInline) {
+                Indent.getNoneIndent()
+            } else {
+                Indent.getSpaceIndent(2)
+            }
+        }
         return Indent.getNoneIndent()
     }
 
@@ -24,7 +55,7 @@ class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBui
         val blocks: MutableList<Block> = ArrayList()
         var child = myNode.firstChildNode
         while (child != null) {
-            if (child.elementType !== WitTypes.WHITE_SPACE) {
+            if (child.elementType !== TokenType.WHITE_SPACE) {
                 val block: Block = WitBlock(
                     child, Wrap.createWrap(WrapType.NONE, false), Alignment.createAlignment(),
                     spacingBuilder
