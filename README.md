@@ -7,7 +7,8 @@ Features:
 
 - Syntax parsing
 - Code highlight
-- Code completion
+- Code completion: keywords, built-in types etc
+- Navigation support for interface, types
 
 <!-- Plugin description end -->
 
