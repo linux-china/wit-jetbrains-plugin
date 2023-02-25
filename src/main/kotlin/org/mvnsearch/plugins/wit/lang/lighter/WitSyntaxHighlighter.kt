@@ -15,8 +15,15 @@ class WitSyntaxHighlighter : SyntaxHighlighterBase() {
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> {
         val textAttributesKey = when (tokenType) {
-            WitTypes.RESERVED_KEYWORD -> DefaultLanguageHighlighterColors.KEYWORD
-            WitTypes.PATH_KEYWORD -> DefaultLanguageHighlighterColors.KEYWORD
+            WitTypes.RESERVED_KEYWORD,
+            WitTypes.TYPE_DECLARE_KEYWORD,
+            WitTypes.DEFAULT_KEYWORD,
+            WitTypes.INTERFACE_KEYWORD,
+            WitTypes.WORLD_KEYWORD,
+            WitTypes.FUNC_KEYWORD,
+            WitTypes.REFER_KEYWORD,
+            WitTypes.PATH_PREFIX_KEYWORD -> DefaultLanguageHighlighterColors.KEYWORD
+
             WitTypes.COMMENT -> DefaultLanguageHighlighterColors.LINE_COMMENT
             WitTypes.DOC_COMMENT -> DefaultLanguageHighlighterColors.DOC_COMMENT
             WitTypes.COMMENT_BLOCK -> DefaultLanguageHighlighterColors.BLOCK_COMMENT
@@ -24,6 +31,7 @@ class WitSyntaxHighlighter : SyntaxHighlighterBase() {
             WitTypes.FUNC_NAME -> DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
             WitTypes.FUNC_PARAM_NAME -> DefaultLanguageHighlighterColors.PARAMETER
             WitTypes.INTERFACE_NAME -> DefaultLanguageHighlighterColors.INTERFACE_NAME
+
             WitTypes.UNION_ITEM_NAME,
             WitTypes.ENUM_ITEM_NAME,
             WitTypes.WORLD_NAME,
