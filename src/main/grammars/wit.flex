@@ -90,7 +90,7 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   ">"                             { return GT; }
   "->"                            { return ARROW; }
   /* Builtin types */
-  "u8" | "u16" | "u32" | "u64" | "s8" | "s16" |"s32" |"s64"  | "float32" | "float64" | 'char' | "bool" | "string"  | "tuple" | "list"  | "option" | "result" | "handle" | "id"
+  "u8" | "u16" | "u32" | "u64" | "s8" | "s16" |"s32" |"s64"  | "float32" | "float64" | "char" | "bool" | "string"  | "tuple" | "list"  | "option" | "result" | "handle" | "id"
                                  { return BUILTIN_TYPE; }
   /* type decleare */
   "type" | "resource" | "record" | "enum" | "flags" | "variant" | "union"       { return TYPE_DECLARE_KEYWORD; }
