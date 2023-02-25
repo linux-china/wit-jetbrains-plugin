@@ -37,7 +37,7 @@ class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBui
             return Indent.getSpaceIndent(4)
         } else if (myNode.elementType === WitTypes.RESOURCE_FUNC_ITEM) {
             return Indent.getSpaceIndent(2)
-        } else if (myNode.elementType === WitTypes.COMMENT || myNode.elementType === WitTypes.DOC_COMMENT) {
+        } else if (myNode.elementType === WitTypes.COMMENT || myNode.elementType === WitTypes.DOC_COMMENT || myNode.elementType === WitTypes.BLOCK_COMMENT_START) {
             return Indent.getSpaceIndent(2, true)
         } else if (myNode.elementType === WitTypes.RBRACE) {
             return if (parent is WitWorldItem) {
