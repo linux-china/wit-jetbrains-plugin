@@ -13,7 +13,7 @@
 - Brace matcher added
 - Goto symbol support for interface names
 - Documentation support for `/// `
-- Code completion for built-in types
+- Code completion: keywords, built-in types
 - Spell bundled dictionary for Wasm words
 
 ## [0.1.0] - 2023-02-22
