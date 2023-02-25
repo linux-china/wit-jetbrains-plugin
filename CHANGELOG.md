@@ -10,9 +10,10 @@
 
 - Type names completion for `pkg.package_name.interface.{}` and `self.interface.{}`
 - Navigation support for `pkg.package_name.interface.{}` and `self.interface.{}`
-- braceMatcher added
+- Brace matcher added
 - Goto symbol support for interface names
-- documentation support for `/// `
+- Documentation support for `/// `
+- Code completion for built-in types
 
 ## [0.1.0] - 2023-02-22
 
