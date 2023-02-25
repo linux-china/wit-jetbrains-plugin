@@ -4,10 +4,7 @@ import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType
 import com.intellij.psi.formatter.common.AbstractBlock
-import org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItem
-import org.mvnsearch.plugins.wit.lang.psi.WitTypes
-import org.mvnsearch.plugins.wit.lang.psi.WitWorldInterfaceTypeInline
-import org.mvnsearch.plugins.wit.lang.psi.WitWorldItem
+import org.mvnsearch.plugins.wit.lang.psi.*
 
 
 class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBuilder: SpacingBuilder) :
@@ -37,8 +34,23 @@ class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBui
             return Indent.getSpaceIndent(4)
         } else if (myNode.elementType === WitTypes.RESOURCE_FUNC_ITEM) {
             return Indent.getSpaceIndent(2)
-        } else if (myNode.elementType === WitTypes.COMMENT || myNode.elementType === WitTypes.DOC_COMMENT || myNode.elementType === WitTypes.BLOCK_COMMENT_START) {
-            return Indent.getSpaceIndent(2, true)
+        } else if (myNode.elementType === WitTypes.COMMENT
+            || myNode.elementType === WitTypes.DOC_COMMENT
+        ) {
+            return if (parent is WitFile) {
+                Indent.getNoneIndent()
+            } else {
+                Indent.getSpaceIndent(2, true)
+            }
+        } else if (myNode.elementType === WitTypes.COMMENT_BLOCK
+            || myNode.elementType === WitTypes.BLOCK_COMMENT_START
+            || myNode.elementType === WitTypes.BLOCK_COMMENT_END
+        ) {
+            return if (parent is WitFile || parent is WitCommentBlock) {
+                Indent.getNoneIndent()
+            } else {
+                Indent.getSpaceIndent(2, true)
+            }
         } else if (myNode.elementType === WitTypes.RBRACE) {
             return if (parent is WitWorldItem) {
                 Indent.getNoneIndent()
