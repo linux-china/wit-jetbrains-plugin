@@ -73,7 +73,7 @@ WitDocument ::= any*
 private recover ::= !(any)
 private any ::= !<<eof>> ( interface-item | world-item | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
 
-any_keyword ::= BUILTIN_TYPE | TYPE_DECLARE_KEYWORD | REFER_KEYWORD | DEFAULT_KEYWORD | FUNC_KEYWORD | INTERFACE_KEYWORD | WORLD_KEYWORD | PATH_PREFIX_KEYWORD | RESERVED_KEYWORD
+any-keyword ::= BUILTIN_TYPE | TYPE_DECLARE_KEYWORD | REFER_KEYWORD | DEFAULT_KEYWORD | FUNC_KEYWORD | INTERFACE_KEYWORD | WORLD_KEYWORD | PATH_PREFIX_KEYWORD | RESERVED_KEYWORD
 comment-block ::= BLOCK_COMMENT_START (WHITE_SPACE | CHAR_LITERAL)* BLOCK_COMMENT_END
 
 // types
@@ -169,15 +169,15 @@ record-field-name ::= IDENTIFIER
 
 // function item
 func-item ::= func-name ':' func-type
-func-name ::= '%'? (IDENTIFIER | any_keyword)
+func-name ::= '%'? (IDENTIFIER | any-keyword)
 func-type ::= 'func' '(' func-param-list? ')' func-result?
 func-param-list ::=  func-param ( ',' func-param )* ','?
 func-param ::= func-param-name ':' wit-type
-func-param-name ::= '%'? (IDENTIFIER | any_keyword)
+func-param-name ::= '%'? (IDENTIFIER | any-keyword)
 func-result ::=  '->' wit-type | '->' '(' func-result-list? ')'
 func-result-list ::= func-result-named-pair ( ',' func-result-named-pair )*
 func-result-named-pair ::= func-result-named-pair-name ':' wit-type
-func-result-named-pair-name ::= '%'? (IDENTIFIER | any_keyword)
+func-result-named-pair-name ::= '%'? (IDENTIFIER | any-keyword)
 
 
 
