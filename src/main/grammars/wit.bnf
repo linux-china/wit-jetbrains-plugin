@@ -157,8 +157,9 @@ union-cases ::= union-case-type (',' union-case-type)* ','?
 union-case-type ::= wit-type
 
 // resource item
-resource-item ::= 'resource' resource-item-name '{' func-item* '}' {pin=2}
+resource-item ::= 'resource' resource-item-name '{' resource-func-item* '}' {pin=2}
 resource-item-name ::= IDENTIFIER
+resource-func-item ::= func-item
 
 // record item
 record-item ::= 'record' record-item-name '{' record-fields? '}' {pin=2}
