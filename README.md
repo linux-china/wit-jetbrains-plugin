@@ -9,6 +9,7 @@ Features:
 - Code highlight
 - Code completion: keywords, built-in types etc
 - Navigation support for interface, types
+- Code format support(experimental)
 
 <!-- Plugin description end -->
 

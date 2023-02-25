@@ -8,6 +8,7 @@
 
 ### Added
 
+- Code format support(experimental)
 - Type names completion for `pkg.package_name.interface.{}` and `self.interface.{}`
 - Navigation support for `pkg.package_name.interface.{}` and `self.interface.{}`
 - Brace matcher added
