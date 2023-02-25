@@ -102,7 +102,7 @@ world-interface-type ::= world-interface-type-inline | use-path
 world-interface-type-inline ::= 'interface' '{' interface-items* '}'
 
 // use item
-use-item ::= 'use' use-path '.' '{' use-names-list '}'
+use-item ::= 'use' use-path '.' '{' use-names-list? '}'
 use-names-list ::= use-names-type (',' use-names-type)*
 use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-type-name
 use-names-type-name ::= IDENTIFIER
