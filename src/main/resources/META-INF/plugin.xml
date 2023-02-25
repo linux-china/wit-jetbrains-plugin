@@ -22,6 +22,8 @@
                         implementationClass="org.mvnsearch.plugins.wit.lang.insight.WitCommenter"/>
         <completion.contributor language="WIT"
                                 implementationClass="org.mvnsearch.plugins.wit.lang.completion.PkgCompletionContributor"/>
+        <completion.contributor language="WIT"
+                                implementationClass="org.mvnsearch.plugins.wit.lang.completion.TypeNameCompletionContributor"/>
         <defaultLiveTemplates file="/liveTemplates/WIT.xml"/>
         <liveTemplateContext contextId="WIT" implementation="org.mvnsearch.plugins.wit.ide.liveTemplates.WitContext"/>
         <lang.directNavigationProvider
