@@ -36,8 +36,11 @@
                 implementation="org.mvnsearch.plugins.wit.lang.navigation.WitChooseByNameContributor"/>
         <!--<psi.referenceContributor language="WIT"
                                   implementation="org.mvnsearch.plugins.wit.lang.contributor.WitReferenceContributor"/>-->
-         <lang.documentationProvider language="WIT"
-                 implementationClass="org.mvnsearch.plugins.wit.lang.doc.WitDocumentationProvider"/>
+        <lang.documentationProvider language="WIT"
+                                    implementationClass="org.mvnsearch.plugins.wit.lang.doc.WitDocumentationProvider"/>
+        <!--<lang.formatter language="WIT"
+                        implementationClass="org.mvnsearch.plugins.wit.lang.format.WitFormattingModelBuilder"/>
+-->
     </extensions>
 
 </idea-plugin>
