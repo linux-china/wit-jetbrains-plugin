@@ -42,8 +42,8 @@
                                   implementation="org.mvnsearch.plugins.wit.lang.contributor.WitReferenceContributor"/>-->
         <lang.documentationProvider language="WIT"
                                     implementationClass="org.mvnsearch.plugins.wit.lang.doc.WitDocumentationProvider"/>
-        <!--<lang.formatter language="WIT"
-                        implementationClass="org.mvnsearch.plugins.wit.lang.format.WitFormattingModelBuilder"/> -->
+        <lang.formatter language="WIT"
+                        implementationClass="org.mvnsearch.plugins.wit.lang.format.WitFormattingModelBuilder"/>
         <spellchecker.bundledDictionaryProvider
                 implementation="org.mvnsearch.plugins.wit.ide.spell.WasmBundledDictionariesProvider"/>
     </extensions>
