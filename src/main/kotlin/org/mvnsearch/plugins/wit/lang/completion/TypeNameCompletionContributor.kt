@@ -5,8 +5,10 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.util.TextRange
 import com.intellij.patterns.PlatformPatterns.psiElement
+import com.intellij.psi.PsiElement
+import com.intellij.psi.util.findParentOfType
 import com.intellij.util.ProcessingContext
-import org.mvnsearch.plugins.wit.lang.psi.WitFile
+import org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItem
 
 class TypeNameCompletionContributor : CompletionContributor() {
     private val builtInTypeNames = listOf(
@@ -45,8 +47,9 @@ class TypeNameCompletionContributor : CompletionContributor() {
                     val lineOffset = caret.visualLineStart
                     val prefixText = parameters.editor.document.getText(TextRange(lineOffset, caret.offset)).trim()
                     //val witFile = parameters.originalFile as WitFile
+                    val parentElement = parameters.originalPosition?.parent
                     if (prefixText.contains("type ") && prefixText.endsWith("=")) {
-                        completeTypeNames(result)
+                        completeTypeNames(result, parentElement)
                     } else if (!(prefixText.startsWith("import")
                                 || prefixText.startsWith("export")
                                 || prefixText.startsWith("use"))
@@ -54,20 +57,27 @@ class TypeNameCompletionContributor : CompletionContributor() {
                         if (prefixText.endsWith(":")
                             || prefixText.endsWith("->")
                             || prefixText.endsWith("<")
+                            || prefixText.endsWith(",")
                         )
-                            completeTypeNames(result)
+                            completeTypeNames(result, parentElement)
                     }
                 }
             }
         )
     }
 
-    fun completeTypeNames(result: CompletionResultSet) {
+    fun completeTypeNames(result: CompletionResultSet, parentElement: PsiElement?) {
         builtInTypeNames.forEach { builtInTypeName ->
             result.addElement(
                 LookupElementBuilder.create(builtInTypeName)
                     .withIcon(AllIcons.Nodes.Type)
             )
+        }
+        if (parentElement != null) {
+            val interfaceItem = parentElement.findParentOfType<WitInterfaceItem>(true)
+            if (interfaceItem != null) {
+                PkgCompletionContributor.completeInterfaceSubTypes(interfaceItem, result)
+            }
         }
     }
 

@@ -11,6 +11,57 @@ import org.mvnsearch.plugins.wit.lang.psi.WitFile
 import org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItem
 
 class PkgCompletionContributor : CompletionContributor() {
+    companion object {
+        fun completeInterfaceSubTypes(interfaceItem: WitInterfaceItem, result: CompletionResultSet) {
+            interfaceItem.interfaceItemsList.forEach { interfaceSubItem ->
+                val typedefItem = interfaceSubItem.typedefItem
+                if (typedefItem != null) {
+                    typedefItem.typeItem?.let {
+                        result.addElement(
+                            LookupElementBuilder.create(it.typeItemName.text)
+                                .withIcon(AllIcons.Nodes.Type)
+                        )
+                    }
+                    typedefItem.recordItem?.let {
+                        result.addElement(
+                            LookupElementBuilder.create(it.recordItemName.text)
+                                .withIcon(AllIcons.Nodes.Record)
+                        )
+                    }
+                    typedefItem.unionItem?.let {
+                        result.addElement(
+                            LookupElementBuilder.create(it.unionItemName.text)
+                        )
+                    }
+                    typedefItem.variantItem?.let {
+                        result.addElement(
+                            LookupElementBuilder.create(it.variantItemName.text)
+                        )
+                    }
+                    typedefItem.flagsItem?.let {
+                        result.addElement(
+                            LookupElementBuilder.create(it.flagsItemName.text)
+                        )
+                    }
+                    typedefItem.enumItem?.let {
+                        result.addElement(
+                            LookupElementBuilder.create(it.enumItemName.text)
+                                .withIcon(AllIcons.Nodes.Enum)
+                        )
+                    }
+                }
+                interfaceSubItem.useItem?.let {
+                    it.useNamesList.useNamesTypeList.forEach { useNamesType ->
+                        val typeName = useNamesType.useNamesTypeAlias?.text ?: useNamesType.useNamesTypeName.text
+                        result.addElement(
+                            LookupElementBuilder.create(typeName).withIcon(AllIcons.Nodes.Type)
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     init {
         extend(
             CompletionType.BASIC,
@@ -96,44 +147,5 @@ class PkgCompletionContributor : CompletionContributor() {
         }
     }
 
-    fun completeInterfaceSubTypes(interfaceItem: WitInterfaceItem, result: CompletionResultSet) {
-        interfaceItem.interfaceItemsList.forEach { interfaceSubItem ->
-            val typedefItem = interfaceSubItem.typedefItem
-            if (typedefItem != null) {
-                typedefItem.typeItem?.let {
-                    result.addElement(
-                        LookupElementBuilder.create(it.typeItemName.text)
-                            .withIcon(AllIcons.Nodes.Type)
-                    )
-                }
-                typedefItem.recordItem?.let {
-                    result.addElement(
-                        LookupElementBuilder.create(it.recordItemName.text)
-                            .withIcon(AllIcons.Nodes.Record)
-                    )
-                }
-                typedefItem.unionItem?.let {
-                    result.addElement(
-                        LookupElementBuilder.create(it.unionItemName.text)
-                    )
-                }
-                typedefItem.variantItem?.let {
-                    result.addElement(
-                        LookupElementBuilder.create(it.variantItemName.text)
-                    )
-                }
-                typedefItem.flagsItem?.let {
-                    result.addElement(
-                        LookupElementBuilder.create(it.flagsItemName.text)
-                    )
-                }
-                typedefItem.enumItem?.let {
-                    result.addElement(
-                        LookupElementBuilder.create(it.enumItemName.text)
-                            .withIcon(AllIcons.Nodes.Enum)
-                    )
-                }
-            }
-        }
-    }
+
 }
