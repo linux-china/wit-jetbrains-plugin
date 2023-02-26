@@ -44,6 +44,8 @@
                                     implementationClass="org.mvnsearch.plugins.wit.lang.doc.WitDocumentationProvider"/>
         <lang.formatter language="WIT"
                         implementationClass="org.mvnsearch.plugins.wit.lang.format.WitFormattingModelBuilder"/>
+        <enterHandlerDelegate implementation="org.mvnsearch.plugins.wit.ide.typing.WitEnterHandler"/>
+
         <spellchecker.bundledDictionaryProvider
                 implementation="org.mvnsearch.plugins.wit.ide.spell.WasmBundledDictionariesProvider"/>
     </extensions>
