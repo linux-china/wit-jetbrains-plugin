@@ -15,6 +15,7 @@
 - Goto symbol support for interface names
 - Documentation support for `/// `
 - Code completion: keywords, built-in types
+- Indent enter support
 - Spell bundled dictionary for Wasm words
 
 ## [0.1.0] - 2023-02-22
