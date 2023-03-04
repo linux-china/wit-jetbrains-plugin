@@ -92,7 +92,7 @@ wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 // world item
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
 world-name ::= IDENTIFIER
-world-items ::= world-export-item | world-import-item  | typedef-item | use-item
+world-items ::= world-export-item | world-import-item  | typedef-item | use-item | include-item
 world-export-item ::= 'export' world-export-item-name ':' world-extern-type
 world-export-item-name ::= IDENTIFIER
 world-import-item ::= 'import' world-import-item-name ':' world-extern-type
@@ -107,6 +107,7 @@ use-names-list ::= use-names-type (',' use-names-type)*
 use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-type-name
 use-names-type-name ::= IDENTIFIER
 use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
+// use path
 use-path ::= use-path-pkg |use-path-self| use-path-package
 use-path-pkg ::= 'pkg' '.' use-path-pkg-name ('.' use-path-pkg-interface-name)? ('.' use-path-part)? {pin=3}
 use-path-pkg-name ::= IDENTIFIER
@@ -118,6 +119,13 @@ use-path-package-name ::= IDENTIFIER
 use-path-package-document-name ::= IDENTIFIER
 use-path-package-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
+
+// include item
+include-item ::= 'include' use-path | 'include' use-path 'with' '{' include-names-list '}'
+include-names-list ::= include-names-type (',' include-names-type)*
+include-names-type ::= include-names-type-name 'as' include-names-type-alias | include-names-type-name
+include-names-type-name ::= IDENTIFIER
+include-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 
 // interface item
 interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}' { pin= 3 mixin="org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItemElementImpl" implements="org.mvnsearch.plugins.wit.lang.psi.WitNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
