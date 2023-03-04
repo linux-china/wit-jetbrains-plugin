@@ -94,7 +94,7 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
                                  { return BUILTIN_TYPE; }
   /* type decleare */
   "type" | "resource" | "record" | "enum" | "flags" | "variant" | "union"       { return TYPE_DECLARE_KEYWORD; }
-  "use" | "import" | "export"    { return REFER_KEYWORD; }
+  "use" | "import" | "export" | "include"    { return REFER_KEYWORD; }
   /* path keywords */
   "pkg"|"self"                   { return PATH_PREFIX_KEYWORD; }
   "default"                      { return DEFAULT_KEYWORD; }
