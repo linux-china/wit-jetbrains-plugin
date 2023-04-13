@@ -17,7 +17,7 @@ plugins {
     // Gradle Kover Plugin
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     // grammar Plugin
-    id("org.jetbrains.grammarkit") version "2022.3"
+    id("org.jetbrains.grammarkit") version "2022.3.1"
 }
 
 group = properties("pluginGroup")
@@ -71,7 +71,7 @@ tasks {
 
     generateLexer {
         // source flex file
-        source.set("src/main/grammars/wit.flex")
+        sourceFile.set(File("src/main/grammars/wit.flex"))
 
         // target directory for lexer
         targetDir.set("src/main/gen/org/mvnsearch/plugins/wit/lang/lexer/")
@@ -85,7 +85,7 @@ tasks {
 
     generateParser {
         // source bnf file
-        source.set("src/main/grammars/wit.bnf")
+        sourceFile.set(File("src/main/grammars/wit.bnf"))
 
         // optional, task-specific root for the generated files. Default: none
         targetRoot.set("src/main/gen")
