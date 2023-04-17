@@ -9,4 +9,20 @@
             <option name="WIT" value="true"/>
         </context>
     </template>
+    <template name="interface" value="interface $name$ { &#10;  $END$&#10;}" description="WIT interface"
+              toReformat="false"
+              toShortenFQNames="true">
+        <variable name="name" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="WIT" value="true"/>
+        </context>
+    </template>
+    <template name="world" value="world $name$ { &#10;  $END$&#10;}" description="WIT world"
+              toReformat="false"
+              toShortenFQNames="true">
+        <variable name="name" expression="" defaultValue="" alwaysStopAt="true"/>
+        <context>
+            <option name="WIT" value="true"/>
+        </context>
+    </template>
 </templateSet>
