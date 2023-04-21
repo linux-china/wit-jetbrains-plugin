@@ -174,7 +174,7 @@ record-item ::= 'record' record-item-name '{' record-fields? '}' {pin=2}
 record-item-name ::= IDENTIFIER
 record-fields ::= record-field (',' record-field)* ','?
 record-field ::= record-field-name ':' wit-type
-record-field-name ::= IDENTIFIER
+record-field-name ::= '%'? (IDENTIFIER | any-keyword)
 
 // function item
 func-item ::= func-name ':' func-type
