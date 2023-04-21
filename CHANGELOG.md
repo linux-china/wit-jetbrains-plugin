@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-04-21
+
+### Added
+
+- live templates: `interface` and `world`
+- include-item support
+
+### Fixed
+
+- `%type` should be record's field name
+
 ## [0.2.0] - 2023-02-26
 
 ### Added
