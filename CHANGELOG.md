@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [0.3.1] - 2023-04-22
+
+### Fixed
+
+- Bug fix for identifier naming uppercase problem
+
 ## [0.3.0] - 2023-04-21
 
 ### Added
@@ -14,7 +20,6 @@
 ### Fixed
 
 - `%type` should be record's field name
-- Bug fix for identifier naming uppercase problem
 
 ## [0.2.0] - 2023-02-26
 
