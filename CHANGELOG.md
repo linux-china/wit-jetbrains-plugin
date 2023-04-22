@@ -9,11 +9,12 @@
 ### Added
 
 - live templates: `interface` and `world`
-- include-item support
+- `include-item` support
 
 ### Fixed
 
 - `%type` should be record's field name
+- Bug fix for identifier naming uppercase problem
 
 ## [0.2.0] - 2023-02-26
 
