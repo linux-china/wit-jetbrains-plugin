@@ -44,7 +44,7 @@
               AT          =  '@'
               DOLLAR      =  '$'
               WHITE_SPACE = 'regexp:[ \t\r\n]+'
-              IDENTIFIER = 'regexp:[a-zA-Z0-9][_a-zA-Z0-9]*'
+              IDENTIFIER = 'regexp:[a-zA-Z][a-zA-Z0-9-]*'
               COMMENT = 'regexp:("//")[^\n]*'
               DOC_COMMENT = 'regexp:("///")[^\n]*'
               BLOCK_COMMENT_START = '/*'
