@@ -64,6 +64,7 @@
               PACKAGE_KEYWORD = 'package'
               RESERVED_KEYWORD = 'regexp:(as|static|future|stream)'
               IDENTIFIER = 'regexp:[a-z][_a-zA-Z0-9-]*'
+              SEMANTIC_VERSION = 'regexp:([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?'
           ]
 }
 
@@ -91,9 +92,9 @@ result-type ::= tuple|list|option|ty
 wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 
 // package item
-package-item ::= 'package' package-namespace {pin=3}
-package-namespace ::= package-name (':' package-name)*
-package-name ::= IDENTIFIER
+package-item ::= 'package' package-namespace SEMANTIC_VERSION?
+package-namespace ::= package-namespace-item (':' package-namespace-item)*
+package-namespace-item ::= IDENTIFIER
 
 // world item
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}

@@ -57,6 +57,7 @@ DOUBLE_LITERAL=([\d][\d_]*)(\.)([\d][\d_]*)
 
 CHAR_LITERAL   = ([^\r\n\ \t]+)
 STRING_LITERAL = (\"[^\\\"\r\n]*\")
+SEMANTIC_VERSION = "@"([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?
 
 %state IN_BLOCK_COMMENT
 
@@ -102,6 +103,7 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   "interface"                    { return INTERFACE_KEYWORD; }
   "world"                        { return  WORLD_KEYWORD; }
   "package"                      { return  PACKAGE_KEYWORD; }
+  {SEMANTIC_VERSION}             { return  SEMANTIC_VERSION; }
   /* other keywords */
   "as" | "static" | "future" | "stream"  { return RESERVED_KEYWORD; }
   /* Comment */
