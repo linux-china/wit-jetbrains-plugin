@@ -101,6 +101,7 @@ STRING_LITERAL = (\"[^\\\"\r\n]*\")
   "func"                         { return FUNC_KEYWORD; }
   "interface"                    { return INTERFACE_KEYWORD; }
   "world"                        { return  WORLD_KEYWORD; }
+  "package"                      { return  PACKAGE_KEYWORD; }
   /* other keywords */
   "as" | "static" | "future" | "stream"  { return RESERVED_KEYWORD; }
   /* Comment */
