@@ -8,7 +8,7 @@
 
 ### Added
 
-- Add package item support: `package example:component`
+- Add package item support: `package example:component` or `package wasi:http@0.1.0`
 - Compatible with cargo-component example.wit: `import cache` and `export backend`
 
 ## [0.3.2] - 2023-05-13
