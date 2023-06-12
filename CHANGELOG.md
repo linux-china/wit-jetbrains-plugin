@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2023-06-12
+
+### Added
+
+- Add package item support: `package example:component`
+- Compatible with cargo-component example.wit: `import cache` and `export backend`
+
 ## [0.3.2] - 2023-05-13
 
 ### Fixed
