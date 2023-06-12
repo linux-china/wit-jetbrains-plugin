@@ -19,6 +19,7 @@ class WitSyntaxHighlighter : SyntaxHighlighterBase() {
             WitTypes.TYPE_DECLARE_KEYWORD,
             WitTypes.DEFAULT_KEYWORD,
             WitTypes.INTERFACE_KEYWORD,
+            WitTypes.PACKAGE_KEYWORD,
             WitTypes.WORLD_KEYWORD,
             WitTypes.FUNC_KEYWORD,
             WitTypes.REFER_KEYWORD,
@@ -31,6 +32,7 @@ class WitSyntaxHighlighter : SyntaxHighlighterBase() {
             WitTypes.FUNC_NAME -> DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
             WitTypes.FUNC_PARAM_NAME -> DefaultLanguageHighlighterColors.PARAMETER
             WitTypes.INTERFACE_NAME -> DefaultLanguageHighlighterColors.INTERFACE_NAME
+            WitTypes.PACKAGE_NAMESPACE -> DefaultLanguageHighlighterColors.METADATA
 
             WitTypes.UNION_ITEM_NAME,
             WitTypes.ENUM_ITEM_NAME,
