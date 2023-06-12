@@ -61,6 +61,7 @@
               FUNC_KEYWORD = 'func'
               INTERFACE_KEYWORD = 'interface'
               WORLD_KEYWORD = 'world'
+              PACKAGE_KEYWORD = 'package'
               RESERVED_KEYWORD = 'regexp:(as|static|future|stream)'
               IDENTIFIER = 'regexp:[a-z][_a-zA-Z0-9-]*'
           ]
@@ -71,7 +72,7 @@
 WitDocument ::= any*
 
 private recover ::= !(any)
-private any ::= !<<eof>> ( interface-item | world-item | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
+private any ::= !<<eof>> ( interface-item | world-item | package-item | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
 
 any-keyword ::= BUILTIN_TYPE | TYPE_DECLARE_KEYWORD | REFER_KEYWORD | DEFAULT_KEYWORD | FUNC_KEYWORD | INTERFACE_KEYWORD | WORLD_KEYWORD | PATH_PREFIX_KEYWORD | RESERVED_KEYWORD
 comment-block ::= BLOCK_COMMENT_START (WHITE_SPACE | CHAR_LITERAL)* BLOCK_COMMENT_END
@@ -89,13 +90,18 @@ result ::= 'result' '<' result-type ',' result-type '>' | 'result' '<' '_' ',' r
 result-type ::= tuple|list|option|ty
 wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 
+// package item
+package-item ::= 'package' package-namespace {pin=3}
+package-namespace ::= package-name (':' package-name)*
+package-name ::= IDENTIFIER
+
 // world item
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
 world-name ::= IDENTIFIER
 world-items ::= world-export-item | world-import-item  | typedef-item | use-item | include-item
-world-export-item ::= 'export' world-export-item-name ':' world-extern-type
+world-export-item ::= 'export' world-export-item-name (':' world-extern-type)?
 world-export-item-name ::= IDENTIFIER
-world-import-item ::= 'import' world-import-item-name ':' world-extern-type
+world-import-item ::= 'import' world-import-item-name (':' world-extern-type)?
 world-import-item-name ::= IDENTIFIER
 world-extern-type ::= func-type | world-interface-type
 world-interface-type ::= world-interface-type-inline | use-path
