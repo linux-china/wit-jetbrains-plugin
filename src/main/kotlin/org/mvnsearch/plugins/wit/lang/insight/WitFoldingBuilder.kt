@@ -87,7 +87,7 @@ class WitFoldingBuilder : FoldingBuilderEx(), DumbAware {
             // fold world inline interface item in import and export
             PsiTreeUtil.findChildrenOfType(worldItem, WitWorldImportItem::class.java).forEach { worldImportItem ->
                 worldImportItem.worldExternType.let { worldExternType ->
-                    worldExternType.worldInterfaceType?.worldInterfaceTypeInline?.let {
+                    worldExternType?.worldInterfaceType?.worldInterfaceTypeInline?.let {
                         addElementFolder(
                             worldImportItem,
                             descriptors,
@@ -98,7 +98,7 @@ class WitFoldingBuilder : FoldingBuilderEx(), DumbAware {
             }
             PsiTreeUtil.findChildrenOfType(worldItem, WitWorldExportItem::class.java).forEach { worldExportItem ->
                 worldExportItem.worldExternType.let { worldExternType ->
-                    worldExternType.worldInterfaceType?.worldInterfaceTypeInline?.let {
+                    worldExternType?.worldInterfaceType?.worldInterfaceTypeInline?.let {
                         addElementFolder(
                             worldExportItem,
                             descriptors,
