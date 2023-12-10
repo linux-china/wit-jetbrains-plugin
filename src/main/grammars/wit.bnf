@@ -92,7 +92,7 @@ result-type ::= tuple|list|option|ty
 wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 
 // package item
-package-item ::= 'package' package-namespace SEMANTIC_VERSION?
+package-item ::= 'package' package-namespace SEMANTIC_VERSION? SEMICOLON
 package-namespace ::= package-namespace-item (':' package-namespace-item)*
 package-namespace-item ::= IDENTIFIER
 
@@ -100,22 +100,22 @@ package-namespace-item ::= IDENTIFIER
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
 world-name ::= IDENTIFIER
 world-items ::= world-export-item | world-import-item  | typedef-item | use-item | include-item
-world-export-item ::= 'export' world-export-item-name (':' world-extern-type)?
+world-export-item ::= 'export' world-export-item-name (':' world-extern-type)? SEMICOLON
 world-export-item-name ::= IDENTIFIER
-world-import-item ::= 'import' world-import-item-name (':' world-extern-type)?
+world-import-item ::= 'import' world-import-item-name (':' world-extern-type)? SEMICOLON
 world-import-item-name ::= IDENTIFIER
 world-extern-type ::= func-type | world-interface-type
 world-interface-type ::= world-interface-type-inline | use-path
 world-interface-type-inline ::= 'interface' '{' interface-items* '}'
 
 // use item
-use-item ::= 'use' use-path '.' '{' use-names-list? '}'
+use-item ::= 'use' use-path '.' '{' use-names-list? '}' SEMICOLON
 use-names-list ::= use-names-type (',' use-names-type)*
 use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-type-name
 use-names-type-name ::= IDENTIFIER
 use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 // use path
-use-path ::= use-path-pkg |use-path-self| use-path-package
+use-path ::= use-path-pkg |use-path-self| use-path-package SEMICOLON
 use-path-pkg ::= 'pkg' '.' use-path-pkg-name ('.' use-path-pkg-interface-name)? ('.' use-path-part)? {pin=3}
 use-path-pkg-name ::= IDENTIFIER
 use-path-pkg-interface-name ::= IDENTIFIER
@@ -128,7 +128,7 @@ use-path-package-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
 
 // include item
-include-item ::= 'include' use-path | 'include' use-path 'with' '{' include-names-list '}'
+include-item ::= 'include' use-path | 'include' use-path 'with' '{' include-names-list '}' SEMICOLON
 include-names-list ::= include-names-type (',' include-names-type)*
 include-names-type ::= include-names-type-name 'as' include-names-type-alias | include-names-type-name
 include-names-type-name ::= IDENTIFIER
@@ -143,7 +143,7 @@ interface-items ::= typedef-item | use-item | func-item
 typedef-item ::= resource-item | variant-item | record-item | union-item | flags-item | enum-item | type-item
 
 // type item
-type-item ::= 'type' type-item-name '=' wit-type  {pin=2}
+type-item ::= 'type' type-item-name '=' wit-type SEMICOLON  {pin=2}
 type-item-name ::= IDENTIFIER
 
 // flags item
@@ -184,7 +184,7 @@ record-field ::= record-field-name ':' wit-type
 record-field-name ::= '%'? (IDENTIFIER | any-keyword)
 
 // function item
-func-item ::= func-name ':' func-type
+func-item ::= func-name ':' func-type SEMICOLON
 func-name ::= '%'? (IDENTIFIER | any-keyword)
 func-type ::= 'func' '(' func-param-list? ')' func-result?
 func-param-list ::=  func-param ( ',' func-param )* ','?
