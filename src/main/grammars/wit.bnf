@@ -99,13 +99,17 @@ package-namespace-item ::= IDENTIFIER
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
 world-name ::= IDENTIFIER
 world-items ::= world-export-item | world-import-item  | typedef-item | use-item | include-item
-world-export-item ::= 'export' world-export-item-name (':' world-extern-type)? SEMICOLON
+world-export-item ::= 'export' (world-export-item-refer | world-export-item-function | world-export-item-interface )
 world-export-item-name ::= IDENTIFIER
-world-import-item ::= 'import' world-import-item-name (':' world-extern-type)? SEMICOLON
+world-export-item-refer ::= world-export-item-name SEMICOLON
+world-export-item-function ::= IDENTIFIER ':' func-type SEMICOLON
+world-export-item-interface ::= IDENTIFIER ':' world-interface-type
+world-import-item ::= 'import' (world-import-item-refer | world-import-item-function | world-import-item-interface)
 world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?
-world-extern-type ::= func-type | world-interface-type
-world-interface-type ::= world-interface-type-inline | use-path
-world-interface-type-inline ::= 'interface' '{' interface-items* '}'
+world-import-item-refer ::= world-import-item-name SEMICOLON
+world-import-item-function ::= IDENTIFIER ':' func-type SEMICOLON
+world-import-item-interface ::= IDENTIFIER ':' world-interface-type
+world-interface-type ::= 'interface' '{' interface-items* '}'
 
 // use item
 use-item ::= 'use' use-path '.' '{' use-names-list? '}' SEMICOLON
