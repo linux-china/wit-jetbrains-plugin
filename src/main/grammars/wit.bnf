@@ -63,7 +63,6 @@
               WORLD_KEYWORD = 'world'
               PACKAGE_KEYWORD = 'package'
               RESERVED_KEYWORD = 'regexp:(as|static|future|stream)'
-              IDENTIFIER = 'regexp:[a-z][_a-zA-Z0-9-]*'
               SEMANTIC_VERSION = 'regexp:([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?'
           ]
 }
@@ -103,7 +102,7 @@ world-items ::= world-export-item | world-import-item  | typedef-item | use-item
 world-export-item ::= 'export' world-export-item-name (':' world-extern-type)? SEMICOLON
 world-export-item-name ::= IDENTIFIER
 world-import-item ::= 'import' world-import-item-name (':' world-extern-type)? SEMICOLON
-world-import-item-name ::= IDENTIFIER
+world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?
 world-extern-type ::= func-type | world-interface-type
 world-interface-type ::= world-interface-type-inline | use-path
 world-interface-type-inline ::= 'interface' '{' interface-items* '}'
