@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2023-12-10
+
+### Added
+
+- New WIT syntax support: semicolon required for `package`, `use`, `include`, `func`, `export`, `import`
+- Compatible with JetBrains IDE 2023.3
+
 ## [0.4.0] - 2023-06-12
 
 ### Added
