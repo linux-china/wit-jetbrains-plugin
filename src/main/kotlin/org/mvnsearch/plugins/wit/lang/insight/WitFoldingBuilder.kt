@@ -86,25 +86,21 @@ class WitFoldingBuilder : FoldingBuilderEx(), DumbAware {
             addElementFolder(worldItem, descriptors, placeHolderText)
             // fold world inline interface item in import and export
             PsiTreeUtil.findChildrenOfType(worldItem, WitWorldImportItem::class.java).forEach { worldImportItem ->
-                worldImportItem.worldExternType.let { worldExternType ->
-                    worldExternType?.worldInterfaceType?.worldInterfaceTypeInline?.let {
-                        addElementFolder(
-                            worldImportItem,
-                            descriptors,
-                            "import ${worldImportItem.worldImportItemName.text} with interface ..."
-                        )
-                    }
+                worldImportItem.worldImportItemInterface?.let {
+                    addElementFolder(
+                        worldImportItem,
+                        descriptors,
+                        "import with interface ..."
+                    )
                 }
             }
             PsiTreeUtil.findChildrenOfType(worldItem, WitWorldExportItem::class.java).forEach { worldExportItem ->
-                worldExportItem.worldExternType.let { worldExternType ->
-                    worldExternType?.worldInterfaceType?.worldInterfaceTypeInline?.let {
-                        addElementFolder(
-                            worldExportItem,
-                            descriptors,
-                            "export ${worldExportItem.worldExportItemName.text} with interface ..."
-                        )
-                    }
+                worldExportItem.worldExportItemInterface?.let {
+                    addElementFolder(
+                        worldExportItem,
+                        descriptors,
+                        "export with interface ..."
+                    )
                 }
             }
         }
