@@ -7,17 +7,17 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.8.0"
+    id("org.jetbrains.kotlin.jvm") version "1.9.20"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.14.1"
+    id("org.jetbrains.intellij") version "1.16.1"
     // Gradle Changelog Plugin
-    id("org.jetbrains.changelog") version "2.0.0"
+    id("org.jetbrains.changelog") version "2.2.0"
     // Gradle Qodana Plugin
-    id("org.jetbrains.qodana") version "0.1.13"
+    id("org.jetbrains.qodana") version "2023.2.1"
     // Gradle Kover Plugin
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     // grammar Plugin
-    id("org.jetbrains.grammarkit") version "2022.3.1"
+    id("org.jetbrains.grammarkit") version "2022.3.2"
 }
 
 group = properties("pluginGroup")
@@ -26,11 +26,6 @@ version = properties("pluginVersion")
 // Configure project's dependencies
 repositories {
     maven("https://repo1.maven.org/maven2/")
-}
-
-// Set the JVM language level used to build the project. Use Java 11 for 2020.3+, and Java 17 for 2022.2+.
-kotlin {
-    jvmToolchain(17)
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
@@ -51,10 +46,8 @@ changelog {
 
 // Configure Gradle Qodana Plugin - read more: https://github.com/JetBrains/gradle-qodana-plugin
 qodana {
-    cachePath.set(file(".qodana").canonicalPath)
-    reportPath.set(file("build/reports/inspections").canonicalPath)
-    saveReport.set(true)
-    showReport.set(System.getenv("QODANA_SHOW_REPORT")?.toBoolean() ?: false)
+    cachePath.set(projectDir.resolve(".qodana").canonicalPath)
+    resultsPath.set(projectDir.resolve("build/reports/inspections").canonicalPath)
 }
 
 // Configure Gradle Kover Plugin - read more: https://github.com/Kotlin/kotlinx-kover#configuration
