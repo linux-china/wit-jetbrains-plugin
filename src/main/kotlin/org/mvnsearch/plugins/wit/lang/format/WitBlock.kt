@@ -54,7 +54,7 @@ class WitBlock(node: ASTNode, wrap: Wrap?, alignment: Alignment?, val spacingBui
         } else if (myNode.elementType === WitTypes.RBRACE) {
             return if (parent is WitWorldItem) {
                 Indent.getNoneIndent()
-            } else if (parent is WitInterfaceItem || parent is WitWorldInterfaceTypeInline) {
+            } else if (parent is WitInterfaceItem || parent is WitWorldInterfaceType) {
                 Indent.getNoneIndent()
             } else {
                 Indent.getSpaceIndent(2)
