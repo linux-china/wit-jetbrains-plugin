@@ -63,7 +63,7 @@
               WORLD_KEYWORD = 'world'
               PACKAGE_KEYWORD = 'package'
               RESERVED_KEYWORD = 'regexp:(as|static|future|stream)'
-              SEMANTIC_VERSION = 'regexp:([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?'
+              SEMANTIC_VERSION = 'regexp:@([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?'
           ]
 }
 
@@ -96,7 +96,7 @@ package-namespace ::= package-namespace-item (':' package-namespace-item)*
 package-namespace-item ::= IDENTIFIER
 
 // top level use item
-toplevel-use-item ::= 'use' use-path '.' '{' use-names-list? '}' SEMICOLON
+toplevel-use-item ::= 'use' use-path ('.' '{' use-names-list? '}')? SEMICOLON
 
 // world item
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
@@ -115,23 +115,19 @@ world-import-item-interface ::= IDENTIFIER ':' world-interface-type
 world-interface-type ::= 'interface' '{' interface-items* '}'
 
 // use item
-use-item ::= 'use' use-path '.' '{' use-names-list? '}' SEMICOLON
+use-item ::= 'use' use-path ('.' '{' use-names-list? '}')? SEMICOLON
 use-names-list ::= use-names-type (',' use-names-type)*
 use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-type-name
 use-names-type-name ::= IDENTIFIER
 use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 // use path
-use-path ::= use-path-pkg |use-path-self| use-path-package SEMICOLON
+use-path ::= (use-path-pkg |use-path-self)
 use-path-pkg-name ::= IDENTIFIER
-use-path-pkg ::=  use-path-pkg-name (':' use-path-pkg-wit-name '/' use-path-pkg-interface-name)? ('.' use-path-part)?
+use-path-pkg ::=  use-path-pkg-name (':' use-path-pkg-wit-name ('/' use-path-pkg-interface-name)?)? SEMANTIC_VERSION?
 use-path-pkg-wit-name ::= IDENTIFIER
 use-path-pkg-interface-name ::= IDENTIFIER
 use-path-self ::= use-path-self-interface-name ('.' use-path-part)? {pin=3}
 use-path-self-interface-name ::= IDENTIFIER
-use-path-package ::= use-path-package-name '.' use-path-package-document-name ('.' use-path-package-interface-name)? ('.' use-path-part)?
-use-path-package-name ::= IDENTIFIER
-use-path-package-document-name ::= IDENTIFIER
-use-path-package-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
 
 // include item
