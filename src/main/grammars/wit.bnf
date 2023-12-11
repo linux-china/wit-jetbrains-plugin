@@ -69,10 +69,10 @@
 
 
 
-WitDocument ::= any*
+WitDocument ::= package-item? any-item*
 
-private recover ::= !(any)
-private any ::= !<<eof>> (  package-item | toplevel-use-item | world-item | interface-item  | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
+private recover ::= !(package-item | any-item)
+private any-item ::= !<<eof>> ( toplevel-use-item | world-item | interface-item  | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
 
 any-keyword ::= BUILTIN_TYPE | TYPE_DECLARE_KEYWORD | REFER_KEYWORD | DEFAULT_KEYWORD | FUNC_KEYWORD | INTERFACE_KEYWORD | WORLD_KEYWORD | PATH_PREFIX_KEYWORD | RESERVED_KEYWORD
 comment-block ::= BLOCK_COMMENT_START (WHITE_SPACE | CHAR_LITERAL)* BLOCK_COMMENT_END
