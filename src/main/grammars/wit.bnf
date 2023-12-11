@@ -72,7 +72,7 @@
 WitDocument ::= any*
 
 private recover ::= !(any)
-private any ::= !<<eof>> ( interface-item | world-item | package-item | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
+private any ::= !<<eof>> (  package-item | toplevel-use-item | world-item | interface-item  | NEW_LINE | DOC_COMMENT | COMMENT | comment-block ) {pin=1 recoverWhile=recover}
 
 any-keyword ::= BUILTIN_TYPE | TYPE_DECLARE_KEYWORD | REFER_KEYWORD | DEFAULT_KEYWORD | FUNC_KEYWORD | INTERFACE_KEYWORD | WORLD_KEYWORD | PATH_PREFIX_KEYWORD | RESERVED_KEYWORD
 comment-block ::= BLOCK_COMMENT_START (WHITE_SPACE | CHAR_LITERAL)* BLOCK_COMMENT_END
@@ -94,6 +94,9 @@ wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
 package-item ::= 'package' package-namespace SEMANTIC_VERSION? SEMICOLON
 package-namespace ::= package-namespace-item (':' package-namespace-item)*
 package-namespace-item ::= IDENTIFIER
+
+// top level use item
+toplevel-use-item ::= 'use' use-path '.' '{' use-names-list? '}' SEMICOLON
 
 // world item
 world-item ::= 'default'? 'world' world-name '{' world-items*  '}' {pin=3}
