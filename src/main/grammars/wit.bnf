@@ -88,7 +88,9 @@ option ::= 'option' '<' option-type '>'
 option-type ::= option | list | tuple | result | ty
 result ::= 'result' '<' result-type ',' result-type '>' | 'result' '<' '_' ',' result-type '>' | 'result' '<' result-type '>' | 'result'
 result-type ::= tuple|list|option|ty
-wit-type ::= tuple | list | option | result | '%' BUILTIN_TYPE | ty
+borrow ::= 'borrow' '<' borrow-type '>'
+borrow-type ::= option | list | tuple | ty
+wit-type ::= tuple | list | option | result | borrow | '%' BUILTIN_TYPE | ty
 
 // package item
 package-item ::= 'package' package-namespace SEMANTIC_VERSION? SEMICOLON
