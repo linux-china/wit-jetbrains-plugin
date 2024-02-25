@@ -9,7 +9,7 @@ plugins {
     // Kotlin support
     id("org.jetbrains.kotlin.jvm") version "1.9.20"
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.16.1"
+    id("org.jetbrains.intellij") version "1.17.2"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "2.2.0"
     // Gradle Qodana Plugin
@@ -17,7 +17,7 @@ plugins {
     // Gradle Kover Plugin
     id("org.jetbrains.kotlinx.kover") version "0.6.1"
     // grammar Plugin
-    id("org.jetbrains.grammarkit") version "2022.3.2"
+    id("org.jetbrains.grammarkit") version "2022.3.2.2"
 }
 
 group = properties("pluginGroup")
@@ -67,10 +67,7 @@ tasks {
         sourceFile.set(File("src/main/grammars/wit.flex"))
 
         // target directory for lexer
-        targetDir.set("src/main/gen/org/mvnsearch/plugins/wit/lang/lexer/")
-
-        // target classname, target file will be targetDir/targetClass.java
-        targetClass.set("PrqlLexer")
+        targetOutputDir.set(project.layout.projectDirectory.dir("src/main/gen/org/mvnsearch/plugins/wit/lang/lexer/"))
 
         // if set, plugin will remove a lexer output file before generating new one. Default: false
         purgeOldFiles.set(true)
@@ -81,7 +78,7 @@ tasks {
         sourceFile.set(File("src/main/grammars/wit.bnf"))
 
         // optional, task-specific root for the generated files. Default: none
-        targetRoot.set("src/main/gen")
+        targetRootOutputDir.set(project.layout.projectDirectory.dir("src/main/gen"))
 
         // path to a parser file, relative to the targetRoot
         pathToParser.set("/org/mvnsearch/plugins/wit/parser/WitParserGenerated.java")
