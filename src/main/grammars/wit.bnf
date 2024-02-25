@@ -83,11 +83,11 @@ tuple ::= 'tuple' '<' tuple-list '>'
 tuple-list ::= tuple-type (',' tuple-type)* ','?
 tuple-type ::= list|tuple|ty
 list ::= 'list' '<' list-type '>'
-list-type ::= tuple|list|option|ty
+list-type ::= tuple|list|option|borrow|ty
 option ::= 'option' '<' option-type '>'
-option-type ::= option | list | tuple | result | ty
+option-type ::= option | list | tuple | result | borrow | ty
 result ::= 'result' '<' result-type ',' result-type '>' | 'result' '<' '_' ',' result-type '>' | 'result' '<' result-type '>' | 'result'
-result-type ::= tuple|list|option|ty
+result-type ::= result|tuple|list|option |borrow|ty
 borrow ::= 'borrow' '<' borrow-type '>'
 borrow-type ::= option | list | tuple | ty
 wit-type ::= tuple | list | option | result | borrow | '%' BUILTIN_TYPE | ty
@@ -111,7 +111,7 @@ world-export-item-refer ::= world-export-item-name SEMICOLON
 world-export-item-function ::= IDENTIFIER ':' func-type SEMICOLON
 world-export-item-interface ::= IDENTIFIER ':' world-interface-type
 world-import-item ::= 'import' (world-import-item-refer | world-import-item-function | world-import-item-interface)
-world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?
+world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?  SEMANTIC_VERSION?
 world-import-item-refer ::= world-import-item-name SEMICOLON
 world-import-item-function ::= IDENTIFIER ':' func-type SEMICOLON
 world-import-item-interface ::= IDENTIFIER ':' world-interface-type
@@ -120,7 +120,7 @@ world-interface-type ::= 'interface' '{' interface-items* '}'
 // use item
 use-item ::= 'use' use-path ('.' '{' use-names-list? '}')? SEMICOLON
 use-names-list ::= use-names-type (',' use-names-type)*
-use-names-type ::= use-names-type-name 'as' use-names-type-alias | use-names-type-name
+use-names-type ::= use-names-type-name ('as' use-names-type-alias)?
 use-names-type-name ::= IDENTIFIER
 use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 // use path
@@ -178,9 +178,10 @@ union-cases ::= union-case-type (',' union-case-type)* ','?
 union-case-type ::= wit-type
 
 // resource item
-resource-item ::= 'resource' resource-item-name (SEMICOLON | ('{' resource-func-item* '}')) {pin=2}
+resource-item ::= 'resource' resource-item-name (SEMICOLON | ('{' resource-func-construct?  resource-func-item* '}')) {pin=2}
 resource-item-name ::= IDENTIFIER
 resource-func-item ::= func-item
+resource-func-construct ::= 'constructor' '(' func-param-list? ')' SEMICOLON
 
 // record item
 record-item ::= 'record' record-item-name '{' record-fields? '}' {pin=2}
@@ -190,12 +191,13 @@ record-field ::= record-field-name ':' wit-type
 record-field-name ::= '%'? (IDENTIFIER | any-keyword)
 
 // function item
-func-item ::= func-name ':' func-type SEMICOLON
+func-item ::= func-name ':' 'static'? func-type SEMICOLON
 func-name ::= '%'? (IDENTIFIER | any-keyword)
 func-type ::= 'func' '(' func-param-list? ')' func-result?
 func-param-list ::=  func-param ( ',' func-param )* ','?
-func-param ::= func-param-name ':' wit-type
+func-param ::= func-param-name ':' func-param-type
 func-param-name ::= '%'? (IDENTIFIER | any-keyword)
+func-param-type ::= wit-type | IDENTIFIER
 func-result ::=  '->' wit-type | '->' '(' func-result-list? ')'
 func-result-list ::= func-result-named-pair ( ',' func-result-named-pair )*
 func-result-named-pair ::= func-result-named-pair-name ':' wit-type
