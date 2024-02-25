@@ -4,6 +4,21 @@
 
 ## [Unreleased]
 
+## [0.6.0] - 2023-02-24
+
+### Added
+
+- WASI Preview2 compatible
+- `borrow` type support
+- `constructor` method support for resource
+- `static` method support for resource
+
+### Fixed
+
+- Compatible with JetBrains IDE 2023.2
+- `resouorce` adjusted
+- top `use` adjusted
+
 ## [0.5.0] - 2023-12-10
 
 ### Added
