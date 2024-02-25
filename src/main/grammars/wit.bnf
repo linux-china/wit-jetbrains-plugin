@@ -131,7 +131,7 @@ use-path-self-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
 
 // include item
-include-item ::= 'include' use-path | 'include' use-path 'with' '{' include-names-list '}' SEMICOLON
+include-item ::= 'include' use-path ('with' '{' include-names-list '}')? SEMICOLON
 include-names-list ::= include-names-type (',' include-names-type)*
 include-names-type ::= include-names-type-name 'as' include-names-type-alias | include-names-type-name
 include-names-type-name ::= IDENTIFIER
@@ -175,7 +175,7 @@ union-cases ::= union-case-type (',' union-case-type)* ','?
 union-case-type ::= wit-type
 
 // resource item
-resource-item ::= 'resource' resource-item-name '{' resource-func-item* '}' {pin=2}
+resource-item ::= 'resource' resource-item-name (SEMICOLON | ('{' resource-func-item* '}')) {pin=2}
 resource-item-name ::= IDENTIFIER
 resource-func-item ::= func-item
 
