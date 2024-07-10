@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [0.6.1] - 2023-07-10
+
+### Added
+
+- Compatible with IntelliJ IDEA 2024.2
+
 ## [0.6.0] - 2023-02-24
 
 ### Added
