@@ -62,8 +62,11 @@
               INTERFACE_KEYWORD = 'interface'
               WORLD_KEYWORD = 'world'
               PACKAGE_KEYWORD = 'package'
+              GATE_SINCE_WORD = '@since'
+              GATE_UNSTABLE_WORD = '@unstable'
+              GATE_DEPRECATED_WORD = '@deprecated'
               RESERVED_KEYWORD = 'regexp:(as|static|future|stream)'
-              SEMANTIC_VERSION = 'regexp:@([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?'
+              SEMANTIC_VERSION = 'regexp:([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?(\+[0-9A-Za-z-]+)?'
           ]
 }
 
@@ -91,9 +94,10 @@ result-type ::= result|tuple|list|option |borrow|ty
 borrow ::= 'borrow' '<' borrow-type '>'
 borrow-type ::= option | list | tuple | ty
 wit-type ::= tuple | list | option | result | borrow | '%' BUILTIN_TYPE | ty
+at-semver ::= AT SEMANTIC_VERSION
 
 // package item
-package-item ::= 'package' package-namespace SEMANTIC_VERSION? SEMICOLON
+package-item ::= 'package' package-namespace at-semver? SEMICOLON
 package-namespace ::= package-namespace-item (':' package-namespace-item)*
 package-namespace-item ::= IDENTIFIER
 
@@ -111,7 +115,7 @@ world-export-item-refer ::= world-export-item-name SEMICOLON
 world-export-item-function ::= IDENTIFIER ':' func-type SEMICOLON
 world-export-item-interface ::= IDENTIFIER ':' world-interface-type
 world-import-item ::= 'import' (world-import-item-refer | world-import-item-function | world-import-item-interface)
-world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?  SEMANTIC_VERSION?
+world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?  at-semver?
 world-import-item-refer ::= world-import-item-name SEMICOLON
 world-import-item-function ::= IDENTIFIER ':' func-type SEMICOLON
 world-import-item-interface ::= IDENTIFIER ':' world-interface-type
@@ -126,7 +130,7 @@ use-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 // use path
 use-path ::= (use-path-pkg |use-path-self)
 use-path-pkg-name ::= IDENTIFIER
-use-path-pkg ::=  use-path-pkg-name (':' use-path-pkg-wit-name ('/' use-path-pkg-interface-name)?)? SEMANTIC_VERSION?
+use-path-pkg ::=  use-path-pkg-name (':' use-path-pkg-wit-name ('/' use-path-pkg-interface-name)?)? at-semver?
 use-path-pkg-wit-name ::= IDENTIFIER
 use-path-pkg-interface-name ::= IDENTIFIER
 use-path-self ::= use-path-self-interface-name ('.' use-path-part)? {pin=3}
@@ -141,7 +145,7 @@ include-names-type-name ::= IDENTIFIER
 include-names-type-alias ::= IDENTIFIER | '%' BUILTIN_TYPE
 
 // interface item
-interface-item ::= 'default'? 'interface' interface-name '{' interface-items* '}' { pin= 3 mixin="org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItemElementImpl" implements="org.mvnsearch.plugins.wit.lang.psi.WitNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
+interface-item ::= gate-item* 'interface' interface-name '{' interface-items* '}' { pin= 3 mixin="org.mvnsearch.plugins.wit.lang.psi.WitInterfaceItemElementImpl" implements="org.mvnsearch.plugins.wit.lang.psi.WitNamedElement" methods=[getKey getValue getName setName getNameIdentifier getPresentation] }
 interface-name ::= IDENTIFIER
 interface-items ::= typedef-item | use-item | func-item
 
@@ -191,7 +195,7 @@ record-field ::= record-field-name ':' wit-type
 record-field-name ::= '%'? (IDENTIFIER | any-keyword)
 
 // function item
-func-item ::= func-name ':' 'static'? func-type SEMICOLON
+func-item ::= gate-item* func-name ':' 'static'? func-type SEMICOLON
 func-name ::= '%'? (IDENTIFIER | any-keyword)
 func-type ::= 'func' '(' func-param-list? ')' func-result?
 func-param-list ::=  func-param ( ',' func-param )* ','?
@@ -203,5 +207,12 @@ func-result-list ::= func-result-named-pair ( ',' func-result-named-pair )*
 func-result-named-pair ::= func-result-named-pair-name ':' wit-type
 func-result-named-pair-name ::= '%'? (IDENTIFIER | any-keyword)
 
+// gate item
+gate-item ::= gate-unstable |  gate-since | gate-deprecated
+gate-unstable ::= GATE_UNSTABLE_WORD '(' feature-field ')'
+gate-since ::= GATE_SINCE_WORD '(' version-field (',' feature-field)* ')'
+gate-deprecated ::= GATE_DEPRECATED_WORD '(' version-field ')'
 
-
+feature-field ::= 'feature' '=' feature-name
+feature-name ::= IDENTIFIER ('-' IDENTIFIER)*
+version-field ::= 'version' '=' SEMANTIC_VERSION
