@@ -106,10 +106,10 @@ toplevel-use-item ::= 'use' use-path ('as' toplevel-use-item-alias)? SEMICOLON
 toplevel-use-item-alias ::= IDENTIFIER
 
 // world item
-world-item ::= 'world' world-name '{' world-items*  '}' {pin=2}
+world-item ::= gate-item* 'world' world-name '{' world-items*  '}' {pin=2}
 world-name ::= IDENTIFIER
 world-items ::= world-export-item | world-import-item  | typedef-item | use-item | include-item
-world-export-item ::= 'export' (world-export-item-refer | world-export-item-function | world-export-item-interface )
+world-export-item ::= gate-item* 'export' (world-export-item-refer | world-export-item-function | world-export-item-interface )
 world-export-item-name ::= IDENTIFIER
 world-export-item-refer ::= world-export-item-name SEMICOLON
 world-export-item-function ::= IDENTIFIER ':' func-type SEMICOLON
@@ -122,7 +122,7 @@ world-import-item-interface ::= IDENTIFIER ':' world-interface-type
 world-interface-type ::= 'interface' '{' interface-items* '}'
 
 // use item
-use-item ::= 'use' use-path ('.' '{' use-names-list? '}')? SEMICOLON
+use-item ::= gate-item* 'use' use-path ('.' '{' use-names-list? '}')? SEMICOLON
 use-names-list ::= use-names-type (',' use-names-type)*
 use-names-type ::= use-names-type-name ('as' use-names-type-alias)?
 use-names-type-name ::= IDENTIFIER
@@ -138,7 +138,7 @@ use-path-self-interface-name ::= IDENTIFIER
 use-path-part ::= IDENTIFIER
 
 // include item
-include-item ::= 'include' use-path ('with' '{' include-names-list '}')? SEMICOLON
+include-item ::= gate-item* 'include' use-path ('with' '{' include-names-list '}')? SEMICOLON
 include-names-list ::= include-names-type (',' include-names-type)*
 include-names-type ::= include-names-type-name 'as' include-names-type-alias | include-names-type-name
 include-names-type-name ::= IDENTIFIER
