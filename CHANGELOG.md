@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [0.6.2] - 2023-09-14
+
+### Added
+
+- Add `@since`, `@unstable` and `@deprecated` gates
+- Compatible with IntelliJ IDEA 2024.3
+
 ## [0.6.1] - 2023-07-10
 
 ### Added
