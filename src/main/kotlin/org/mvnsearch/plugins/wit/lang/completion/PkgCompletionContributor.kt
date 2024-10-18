@@ -18,34 +18,34 @@ class PkgCompletionContributor : CompletionContributor() {
                 if (typedefItem != null) {
                     typedefItem.typeItem?.let {
                         result.addElement(
-                            LookupElementBuilder.create(it.typeItemName.text)
+                            LookupElementBuilder.create(it.typeItemName!!.text)
                                 .withIcon(AllIcons.Nodes.Type)
                         )
                     }
                     typedefItem.recordItem?.let {
                         result.addElement(
-                            LookupElementBuilder.create(it.recordItemName.text)
+                            LookupElementBuilder.create(it.recordItemName!!.text)
                                 .withIcon(AllIcons.Nodes.Record)
                         )
                     }
                     typedefItem.unionItem?.let {
                         result.addElement(
-                            LookupElementBuilder.create(it.unionItemName.text)
+                            LookupElementBuilder.create(it.unionItemName!!.text)
                         )
                     }
                     typedefItem.variantItem?.let {
                         result.addElement(
-                            LookupElementBuilder.create(it.variantItemName.text)
+                            LookupElementBuilder.create(it.variantItemName!!.text)
                         )
                     }
                     typedefItem.flagsItem?.let {
                         result.addElement(
-                            LookupElementBuilder.create(it.flagsItemName.text)
+                            LookupElementBuilder.create(it.flagsItemName!!.text)
                         )
                     }
                     typedefItem.enumItem?.let {
                         result.addElement(
-                            LookupElementBuilder.create(it.enumItemName.text)
+                            LookupElementBuilder.create(it.enumItemName!!.text)
                                 .withIcon(AllIcons.Nodes.Enum)
                         )
                     }
