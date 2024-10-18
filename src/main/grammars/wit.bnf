@@ -102,7 +102,7 @@ package-namespace ::= package-namespace-item (':' package-namespace-item)*
 package-namespace-item ::= IDENTIFIER
 
 // top level use item
-toplevel-use-item ::= 'use' use-path ('as' toplevel-use-item-alias)? SEMICOLON
+toplevel-use-item ::= gate-item* 'use' use-path ('as' toplevel-use-item-alias)? SEMICOLON
 toplevel-use-item-alias ::= IDENTIFIER
 
 // world item
@@ -114,7 +114,7 @@ world-export-item-name ::= IDENTIFIER
 world-export-item-refer ::= world-export-item-name SEMICOLON
 world-export-item-function ::= IDENTIFIER ':' func-type SEMICOLON
 world-export-item-interface ::= IDENTIFIER ':' world-interface-type
-world-import-item ::= 'import' (world-import-item-refer | world-import-item-function | world-import-item-interface)
+world-import-item ::= gate-item* 'import' (world-import-item-refer | world-import-item-function | world-import-item-interface)
 world-import-item-name ::= IDENTIFIER (':' IDENTIFIER '/' IDENTIFIER)?  at-semver?
 world-import-item-refer ::= world-import-item-name SEMICOLON
 world-import-item-function ::= IDENTIFIER ':' func-type SEMICOLON
@@ -153,42 +153,42 @@ interface-items ::= typedef-item | use-item | func-item
 typedef-item ::= resource-item | variant-item | record-item | union-item | flags-item | enum-item | type-item
 
 // type item
-type-item ::= 'type' type-item-name '=' wit-type SEMICOLON  {pin=2}
+type-item ::= gate-item* 'type' type-item-name '=' wit-type SEMICOLON  {pin=2}
 type-item-name ::= IDENTIFIER
 
 // flags item
-flags-item ::= 'flags' flags-item-name '{' flags-fields '}' {pin=2}
+flags-item ::= gate-item* 'flags' flags-item-name '{' flags-fields '}' {pin=2}
 flags-item-name ::= IDENTIFIER
 flags-fields ::= flags-field-name (',' flags-field-name)* ','?
 flags-field-name ::= IDENTIFIER
 
 // variant item
-variant-item ::= 'variant' variant-item-name '{' variant-cases '}' {pin=2}
+variant-item ::= gate-item* 'variant' variant-item-name '{' variant-cases '}' {pin=2}
 variant-item-name ::= IDENTIFIER
 variant-cases ::= variant-case (',' variant-case)* ','?
 variant-case ::=  variant-case-name '(' wit-type ')' | variant-case-name
 variant-case-name ::= IDENTIFIER
 
 // enum item
-enum-item ::= 'enum' enum-item-name '{' enum-cases '}' {pin=2}
+enum-item ::= gate-item* 'enum' enum-item-name '{' enum-cases '}' {pin=2}
 enum-item-name ::= IDENTIFIER
 enum-cases ::= enum-case-name (',' NEW_LINE* enum-case-name)* ','?
 enum-case-name ::= IDENTIFIER
 
 // union item
-union-item ::= 'union' union-item-name '{' union-cases '}' {pin=2}
+union-item ::= gate-item* 'union' union-item-name '{' union-cases '}' {pin=2}
 union-item-name ::= IDENTIFIER
 union-cases ::= union-case-type (',' union-case-type)* ','?
 union-case-type ::= wit-type
 
 // resource item
-resource-item ::= 'resource' resource-item-name (SEMICOLON | ('{' resource-func-construct?  resource-func-item* '}')) {pin=2}
+resource-item ::= gate-item* 'resource' resource-item-name (SEMICOLON | ('{' resource-func-construct?  resource-func-item* '}')) {pin=2}
 resource-item-name ::= IDENTIFIER
 resource-func-item ::= func-item
 resource-func-construct ::= 'constructor' '(' func-param-list? ')' SEMICOLON
 
 // record item
-record-item ::= 'record' record-item-name '{' record-fields? '}' {pin=2}
+record-item ::= gate-item* 'record' record-item-name '{' record-fields? '}' {pin=2}
 record-item-name ::= IDENTIFIER
 record-fields ::= record-field (',' record-field)* ','?
 record-field ::= record-field-name ':' wit-type
