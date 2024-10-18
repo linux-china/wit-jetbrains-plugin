@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [0.6.3] - 2023-10-18
+
+### Added
+
+- Add `@since`, `@unstable` and `@deprecated` gates for more items
+
 ## [0.6.2] - 2023-09-14
 
 ### Added
