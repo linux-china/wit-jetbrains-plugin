@@ -185,7 +185,7 @@ union-case-type ::= wit-type
 resource-item ::= gate-item* 'resource' resource-item-name (SEMICOLON | ('{' resource-func-construct?  resource-func-item* '}')) {pin=2}
 resource-item-name ::= IDENTIFIER
 resource-func-item ::= func-item
-resource-func-construct ::= 'constructor' '(' func-param-list? ')' SEMICOLON
+resource-func-construct ::= gate-item* 'constructor' '(' func-param-list? ')' SEMICOLON
 
 // record item
 record-item ::= gate-item* 'record' record-item-name '{' record-fields? '}' {pin=2}
